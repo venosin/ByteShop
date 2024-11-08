@@ -24,4 +24,8 @@ El repositorio se organiza en dos grandes secciones: **Frontend** y **Backend**,
 
 El backend maneja toda la lógica del servidor, la autenticación de usuarios, el manejo de productos y las interacciones con la base de datos. La API RESTful expone varios endpoints para que el frontend pueda realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos y las órdenes de los usuarios.
 
-#### Estructura de directorios:
+### Frontend (React)
+
+El **frontend** de ByteShop está construido con **React**, que proporciona una interfaz interactiva y dinámica para que los usuarios naveguen por los productos, los agreguen al carrito y gestionen su cuenta. React se comunica con el backend a través de la API RESTful para realizar acciones como la autenticación y la compra de productos.
+
+
