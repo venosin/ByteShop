@@ -4,11 +4,11 @@ import categoriesController from '../controllers/categoriesController.js';
 
 router.route("/")
   .get(categoriesController.getcategories)
-  .post(categoriesController.createcategories);
+  .post(categoriesController.createCategories);
 
 router.route("/:id")
   .get(categoriesController.getCategorie)
-  .put(categoriesController.updatecategories)
+  .put(categoriesController.updateCategories)
   .delete(categoriesController.deletecategories);
 
 export default router;

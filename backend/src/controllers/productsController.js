@@ -1,7 +1,12 @@
-/**
- *
- * TODO: Validar que el id de la categoria exista antes de guardar un producto
- */
+/*
+* Este archivo define los controladores para gestionar las operaciones CRUD
+* (Crear, Leer, Actualizar y Eliminar) de productos en la base de datos.
+* 
+* Se utilizan los métodos de Mongoose para interactuar con la base de datos MongoDB.
+* Las operaciones están asociadas a endpoints o rutas
+*
+* TODO: Validar que el id de la categoría exista antes de guardar un producto.
+*/
 
 const productsController = {};
 import productsModel from "../models/Product.js";
@@ -15,7 +20,6 @@ productsController.getProducts = async (req, res) => {
 // SELECT
 productsController.getProduct = async (req, res) => {
   const products = await productsModel.findById(req.params.id);
-  console.log(products);
   res.json(products);
 };
 

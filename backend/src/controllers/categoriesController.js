@@ -1,3 +1,14 @@
+/*
+ * Este archivo define los controladores para gestionar las operaciones CRUD
+ * (Crear, Leer, Actualizar y Eliminar) de la colección "categories" en MongoDB.
+ *
+ * Se utilizan métodos de Mongoose para interactuar con la base de datos.
+ * Cada función está asociada con un endpoint o ruta,
+ * de tal manera que si visito localhost:4000/categories/ con POST y le envío datos, se ejecutará createCategories
+ *
+ * TODO: Implementar validaciones de datos y manejo de errores más robusto en las operaciones.
+ */
+
 const categoriesController = {};
 import categoriesModel from "../models/Categories.js";
 
@@ -15,19 +26,20 @@ categoriesController.getCategorie = async (req, res) => {
 };
 
 // CREATE: crea una categoria nueva
-categoriesController.createcategories = async (req, res) => {
-  const { name, description, image } = req.body;
+categoriesController.createCategories = async (req, res) => {
+  const { name, description, image,  ...otherFields } = req.body;
   const newCategorie = new categoriesModel({
-    name: name,
-    description: description,
-    image: image,
+    //aqui colocar todos los datos tambien
+    ...req.body,
   });
   await newCategorie.save();
+  console.log(newCategorie);
+  console.log(req.body);
   res.json({ message: ["Categories saved"] });
 };
 
 // UPDATE: actualiza una categoria
-categoriesController.updatecategories = async (req, res) => {
+categoriesController.updateCategories = async (req, res) => {
   const { name, description, image } = req.body;
   await categoriesModel.findByIdAndUpdate(req.params.id, {
     name: name,
