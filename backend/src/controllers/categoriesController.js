@@ -1,9 +1,46 @@
 const categoriesController = {};
+import categoriesModel from "../models/Categories.js";
 
-categoriesController.getcategories = (req, res)=> res.json({message: []});
-categoriesController.createcategories = (req, res)=> res.json({message: ["Categories saved"]});
-categoriesController.updatecategories = (req, res)=> res.json({message: ["Categories updated"]});
-categoriesController.deletecategories = (req, res)=> res.json({message: ["Categories deleted"]});
-categoriesController.getCategorie = (req, res)=> res.json({message: ["Categories with id 1"]});
+// READ: Select a todas las categorias
+categoriesController.getcategories = async (req, res) => {
+  const categories = await categoriesModel.find();
+  res.json(categories);
+};
+
+// READ: Select a una categoria en especifico
+categoriesController.getCategorie = async (req, res) => {
+  const categorie = await categoriesModel.findById(req.params.id);
+  console.log(categorie);
+  res.json(categorie);
+};
+
+// CREATE: crea una categoria nueva
+categoriesController.createcategories = async (req, res) => {
+  const { name, description, image } = req.body;
+  const newCategorie = new categoriesModel({
+    name: name,
+    description: description,
+    image: image,
+  });
+  await newCategorie.save();
+  res.json({ message: ["Categories saved"] });
+};
+
+// UPDATE: actualiza una categoria
+categoriesController.updatecategories = async (req, res) => {
+  const { name, description, image } = req.body;
+  await categoriesModel.findByIdAndUpdate(req.params.id, {
+    name: name,
+    description: description,
+    image: image,
+  });
+  res.json({ message: ["Categories updated"] });
+};
+
+// DELETE: Borra una categoria en base al id que me envien
+categoriesController.deletecategories = async (req, res) => {
+  await categoriesModel.findByIdAndDelete(req.params.id);
+  res.json({ message: ["Categories deleted"] });
+};
 
 export default categoriesController;
