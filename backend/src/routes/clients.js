@@ -1,15 +1,15 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
 
-import clientsController from '../controllers/clientsController.js';
+import clientsController from "../controllers/clientsController.js";
 
-router.route('/')
-    .get(clientsController.getclients)
-    .post(clientsController.createclients)
+router.route("/")
+  .get(clientsController.getclients)
+  .post(clientsController.createclients);
 
-router.route('/:id')
-.delete(clientsController.deleteclients)
-
-
+router.route("/:id")
+  .get(clientsController.getClient)
+  .put(clientsController.updateclients)
+  .delete(clientsController.deleteclients);
 
 export default router;

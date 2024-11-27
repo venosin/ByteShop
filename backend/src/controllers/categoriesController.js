@@ -27,14 +27,14 @@ categoriesController.getCategorie = async (req, res) => {
 
 // CREATE: crea una categoria nueva
 categoriesController.createCategories = async (req, res) => {
-  const { name, description, image,  ...otherFields } = req.body;
+  const { name, description, image, ...otherFields } = req.body;
   const newCategorie = new categoriesModel({
-    //aqui colocar todos los datos tambien
+    name: name,
+    description: description,
+    image: image,
     ...req.body,
   });
   await newCategorie.save();
-  console.log(newCategorie);
-  console.log(req.body);
   res.json({ message: ["Categories saved"] });
 };
 
