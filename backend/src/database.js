@@ -1,11 +1,13 @@
 /*
 * En este archivo realizamos la conexión a una base de datos en MongoDB
 * Es importante recordar que no es necesario crear la base de datos desde MongoDBCompass, ya que si no existe, se crea automaticamente
+*
 * Usamos variables de entorno con dotenv y comprobamos si la conexión está open, disconnected o error
 *
 * TODO: cuando la conexión esté desconectada o genere un error, hacer una función para reconectarme automaticamente a la base de datos
 */
 
+// Imports
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 
