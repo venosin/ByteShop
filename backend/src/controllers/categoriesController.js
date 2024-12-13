@@ -27,11 +27,10 @@ categoriesController.getCategorie = async (req, res) => {
 
 // CREATE: crea una categoria nueva
 categoriesController.createCategories = async (req, res) => {
-  const { name, description, image, ...otherFields } = req.body;
+  const { name, description, ...otherFields } = req.body;
   const newCategorie = new categoriesModel({
     name: name,
     description: description,
-    image: image,
     ...req.body,
   });
   await newCategorie.save();
@@ -40,11 +39,10 @@ categoriesController.createCategories = async (req, res) => {
 
 // UPDATE: actualiza una categoria
 categoriesController.updateCategories = async (req, res) => {
-  const { name, description, image } = req.body;
+  const { name, description } = req.body;
   await categoriesModel.findByIdAndUpdate(req.params.id, {
     name: name,
-    description: description,
-    image: image,
+    description: description
   });
   res.json({ message: ["Categories updated"] });
 };

@@ -14,7 +14,6 @@ const categoriesSchema = new Schema({
         unique: true
     },
     description: String,
-    image: String
 },{
     timestamps: true,
     strict: false,
