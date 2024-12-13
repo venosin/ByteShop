@@ -11,53 +11,71 @@
 const productsController = {};
 import productsModel from "../models/Product.js";
 
-// SELECT
+// SELECT ALL PRODUCTS
 productsController.getProducts = async (req, res) => {
-  const products = await productsModel.find();
+  const products = await productsModel.find().populate('idCategory').populate('idBrand').populate('idModel');
   res.json(products);
 };
 
-// SELECT
+// SELECT PRODUCT BY ID
 productsController.getProduct = async (req, res) => {
-  const products = await productsModel.findById(req.params.id);
-  res.json(products);
+  const product = await productsModel.findById(req.params.id).populate('idCategory').populate('idBrand').populate('idModel');
+  if (!product) {
+    return res.status(404).json({ message: "Producto no encontrado" });
+  }
+  res.json(product);
 };
 
-//CREATE
+// CREATE PRODUCT
 productsController.createProducts = async (req, res) => {
-  const { name, price, category, stock, image } = req.body;
+  const { name, description, price, idCategory, stock, image, idBrand, idModel, discount } = req.body;
   const newProduct = new productsModel({
-    name: name,
-    price: price,
-    category: category,
+    name,
+    description,
+    price,
+    idCategory,
     stock: stock || 0,
-    image: image,
+    image,
+    idBrand,
+    idModel,
+    discount: discount || 0,
   });
 
-  // Guardar el producto en la base de datos
   await newProduct.save();
-
-  // Responder con éxito
-  res.status(201).json({ message: "Producto guardado" });
+  res.status(201).json({ message: "Producto creado con éxito"});
 };
 
-// UPDATE
+// UPDATE PRODUCT
 productsController.updateProducts = async (req, res) => {
-  const { name, price, category, stock, image } = req.body;
-  await productsModel.findByIdAndUpdate(req.params.id, {
-    name: name,
-    price: price,
-    category: category,
-    stock: stock || 0,
-    image: image,
-  });
-  res.json({ message: ["Categories updated"] });
+  const { name, description, price, idCategory, stock, image, idBrand, idModel, discount } = req.body;
+  const updatedProduct = await productsModel.findByIdAndUpdate(
+    req.params.id,
+    {
+      name,
+      description,
+      price,
+      idCategory,
+      stock: stock || 0,
+      image,
+      idBrand,
+      idModel,
+      discount: discount || 0,
+    },
+    { new: true }
+  );
+  if (!updatedProduct) {
+    return res.status(404).json({ message: "Producto no encontrado" });
+  }
+  res.json({ message: "Producto actualizado con éxito", product: updatedProduct });
 };
 
-// DELETE
+// DELETE PRODUCT
 productsController.deleteProducts = async (req, res) => {
-  await categoriesModel.findByIdAndDelete(req.params.id);
-  res.json({ message: ["Categories deleted"] });
+  const deletedProduct = await productsModel.findByIdAndDelete(req.params.id);
+  if (!deletedProduct) {
+    return res.status(404).json({ message: "Producto no encontrado" });
+  }
+  res.json({ message: "Producto eliminado con éxito", product: deletedProduct });
 };
 
 export default productsController;

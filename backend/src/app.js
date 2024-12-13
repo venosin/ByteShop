@@ -10,6 +10,7 @@ import cors from 'cors';
 import productsRoutes from './routes/products.js';
 import clientsRoutes from './routes/clients.js'
 import categoriesRoutes from './routes/categories.js'
+import brandsRoutes from './routes/brands.js'
 
 const app = express();
 
@@ -38,6 +39,6 @@ app.use(express.json());
 app.use('/products', productsRoutes);
 app.use('/clients', clientsRoutes);
 app.use('/categories', categoriesRoutes);
-
+app.use('/brands', brandsRoutes)
 
 export default app;
