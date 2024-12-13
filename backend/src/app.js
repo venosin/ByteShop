@@ -12,6 +12,7 @@ import clientsRoutes from './routes/clients.js'
 import categoriesRoutes from './routes/categories.js'
 import brandsRoutes from './routes/brands.js'
 import modelsRoutes from './routes/models.js'
+import employeesRoutes from './routes/employees.js'
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/products', productsRoutes);
 app.use('/clients', clientsRoutes);
 app.use('/categories', categoriesRoutes);
 app.use('/brands', brandsRoutes)
-app.use('./models', modelsRoutes)
+app.use('/models', modelsRoutes)
+app.use('/employees', employeesRoutes)
 
 export default app;

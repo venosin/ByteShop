@@ -44,7 +44,11 @@ const productsSchema = new Schema({
     min: 0,
     max: 100, // Porcentaje de descuento
   },
-});
+},{
+  timestamps: true,
+  strict: false,
+})
+
 
 export default model('Products', productsSchema);
 

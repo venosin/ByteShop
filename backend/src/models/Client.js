@@ -29,6 +29,10 @@ const usersSchema = new Schema({
     default: null, // Valor predeterminado null
     match: /^[0-9]{8}-[0-9]{1}$/, // Validación para el formato DUI (ejemplo: 12345678-9)
   },
-});
+},{
+  timestamps: true,
+  strict: false,
+}
+)
 
 export default model('Users', usersSchema);
