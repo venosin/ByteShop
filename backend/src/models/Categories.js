@@ -5,6 +5,12 @@
 * También se configura el campo `timestamps` para agregar automáticamente las marcas de tiempo de creación y actualización de los documentos.
 */
 
+/*
+    Campos:
+        name
+        description
+*/
+
 import { Schema, model } from 'mongoose';
 
 const categoriesSchema = new Schema({

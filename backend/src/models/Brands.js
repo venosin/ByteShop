@@ -1,3 +1,8 @@
+/*
+    Campos:
+        Nombre
+*/
+
 import { Schema, model } from 'mongoose';
 
 const brandsSchema = new Schema({

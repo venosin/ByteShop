@@ -43,7 +43,7 @@ employeeController.createEmployees = async (req, res) => {
     });
 
     await newEmployee.save();
-    res.status(201).json({ message: "Employee created successfully", employee: newEmployee });
+    res.status(201).json({ message: "Employee created successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error creating employee", error });
   }
@@ -73,7 +73,7 @@ employeeController.updateEmployees = async (req, res) => {
       return res.status(404).json({ message: "Employee not found" });
     }
 
-    res.json({ message: "Employee updated successfully", employee: updatedEmployee });
+    res.json({ message: "Employee updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error updating employee", error });
   }

@@ -1,3 +1,18 @@
+/*
+    Campos:
+        name
+        lastname
+        email
+        password
+        telephone
+        dui
+        address
+        birthdate
+        hireDate
+        isssNumber
+*/
+
+
 import { Schema, model } from 'mongoose';
 
 const employeesSchema = new Schema(
@@ -55,7 +70,7 @@ const employeesSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Add createdAt and updatedAt fields
+    timestamps: true, 
     strict: false,     
   }
 );

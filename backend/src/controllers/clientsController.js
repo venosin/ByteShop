@@ -8,7 +8,7 @@ clientsController.getClients = async (req, res) => {
     const clients = await clientsModel.find();
     res.json(clients);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener los clientes", error: error.message });
+    res.status(500).json({ message: "Error", error: error.message });
   }
 };
 
@@ -17,11 +17,11 @@ clientsController.getClient = async (req, res) => {
   try {
     const client = await clientsModel.findById(req.params.id);
     if (!client) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({ message: "Client not found" });
     }
     res.json(client);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener el cliente", error: error.message });
+    res.status(500).json({ message: "Error", error: error.message });
   }
 };
 
@@ -31,7 +31,7 @@ clientsController.createClients = async (req, res) => {
 
   // Validación de campos requeridos
   if (!name || !lastName || !email || !password || !telephone) {
-    return res.status(400).json({ message: "Todos los campos son requeridos" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
@@ -45,9 +45,9 @@ clientsController.createClients = async (req, res) => {
     });
 
     await newClient.save();
-    res.status(201).json({ message: "Cliente creado con éxito", client: newClient });
+    res.status(201).json({ message: "Client saved" });
   } catch (error) {
-    res.status(500).json({ message: "Error al crear el cliente", error: error.message });
+    res.status(500).json({ message: "Error", error: error.message });
   }
 };
 
@@ -57,7 +57,7 @@ clientsController.updateClients = async (req, res) => {
 
   // Validación de campos requeridos
   if (!name || !lastName || !email || !password || !telephone) {
-    return res.status(400).json({ message: "Todos los campos son requeridos" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
@@ -75,12 +75,12 @@ clientsController.updateClients = async (req, res) => {
     );
 
     if (!updatedClient) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({ message: "Client not found" });
     }
 
-    res.json({ message: "Cliente actualizado con éxito", client: updatedClient });
+    res.json({ message: "Cliente updated"});
   } catch (error) {
-    res.status(500).json({ message: "Error al actualizar el cliente", error: error.message });
+    res.status(500).json({ message: "Error", error: error.message });
   }
 };
 
@@ -89,11 +89,11 @@ clientsController.deleteClients = async (req, res) => {
   try {
     const deletedClient = await clientsModel.findByIdAndDelete(req.params.id);
     if (!deletedClient) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({ message: "Client not found" });
     }
-    res.json({ message: "Cliente eliminado con éxito", client: deletedClient });
+    res.json({ message: "Client deleted"});
   } catch (error) {
-    res.status(500).json({ message: "Error al eliminar el cliente", error: error.message });
+    res.status(500).json({ message: "Error ", error: error.message });
   }
 };
 
