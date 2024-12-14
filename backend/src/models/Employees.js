@@ -55,7 +55,7 @@ const employeesSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Add createdAt and updatedAt fields
+    timestamps: true, 
     strict: false,     
   }
 );

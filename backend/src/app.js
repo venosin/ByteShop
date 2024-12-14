@@ -13,6 +13,7 @@ import categoriesRoutes from './routes/categories.js'
 import brandsRoutes from './routes/brands.js'
 import modelsRoutes from './routes/models.js'
 import employeesRoutes from './routes/employees.js'
+import paymentMethodsRoutes from './routes/paymentMethods.js'
 
 
 const app = express();
@@ -45,6 +46,7 @@ app.use('/categories', categoriesRoutes);
 app.use('/brands', brandsRoutes)
 app.use('/models', modelsRoutes)
 app.use('/employees', employeesRoutes)
+app.use('/paymentMethods', paymentMethodsRoutes)
 
 
 export default app;

@@ -1,20 +1,24 @@
-const paymentMethodsController = {};
-import paymentMethodsModel from "./models/paymentMethods.js";
+/**
+ * TODO: ver lo de populate al obtener datos
+ */
 
-// READ: Select a todos los métodos de pago
+const paymentMethodsController = {};
+import paymentMethodsModel from "../models/PaymentMethods.js";
+
+// READ: Obtener todos los métodos de pago
 paymentMethodsController.getPaymentMethods = async (req, res) => {
   try {
-    const paymentMethods = await paymentMethodsModel.find().populate('idClient'); // Populate idClient with relevant client data
+    const paymentMethods = await paymentMethodsModel.find(); // Poblar idClient con datos relevantes
     res.json(paymentMethods);
   } catch (error) {
     res.status(500).json({ message: "Error fetching payment methods", error: error.message });
   }
 };
 
-// READ: Select a un método de pago específico
+// READ: Obtener un método de pago específico
 paymentMethodsController.getPaymentMethod = async (req, res) => {
   try {
-    const paymentMethod = await paymentMethodsModel.findById(req.params.id).populate('idClient', 'name email'); // Populate idClient with relevant client data
+    const paymentMethod = await paymentMethodsModel.findById(req.params.id).populate("idClient", "name email"); // Poblar idClient con datos relevantes
     if (!paymentMethod) {
       return res.status(404).json({ message: "Payment method not found" });
     }
@@ -24,41 +28,66 @@ paymentMethodsController.getPaymentMethod = async (req, res) => {
   }
 };
 
-// CREATE: Crea un nuevo método de pago
-paymentMethodsController.createPaymentMethod = async (req, res) => {
-  const { paymentMethod, idClient } = req.body;
+// CREATE: Crear un nuevo método de pago
+paymentMethodsController.createPaymentMethods = async (req, res) => {
+  const { paymentMethod, idClient, cardDetails } = req.body;
+
   try {
-    const newPaymentMethod = new paymentMethodsModel({ 
+    // Validar datos de tarjeta solo si el método de pago es "Tarjeta de crédito"
+    if (paymentMethod === "Tarjeta de crédito") {
+      if (!cardDetails || !cardDetails.cardNumber || !cardDetails.expiryDate || !cardDetails.cvv || !cardDetails.cardHolder) {
+        return res.status(400).json({ message: "Card details are required for credit card payment method." });
+      }
+    }
+
+    const newPaymentMethod = new paymentMethodsModel({
       paymentMethod,
-      idClient
+      idClient,
+      cardDetails: paymentMethod === "Tarjeta de crédito" ? cardDetails : undefined // Solo guardar detalles si es necesario
     });
+
     await newPaymentMethod.save();
-    res.json({ message: "Payment method created", data: newPaymentMethod });
+    res.status(201).json({ message: "Payment method created", data: newPaymentMethod });
   } catch (error) {
     res.status(400).json({ message: "Error creating payment method", error: error.message });
   }
 };
 
-// UPDATE: Actualiza un método de pago
-paymentMethodsController.updatePaymentMethod = async (req, res) => {
-  const { paymentMethod, idClient } = req.body;
+// UPDATE: Actualizar un método de pago
+paymentMethodsController.updatePaymentMethods = async (req, res) => {
+  const { paymentMethod, idClient, cardDetails } = req.body;
+
   try {
+    const updates = { paymentMethod, idClient };
+
+    // Actualizar datos de tarjeta si es "Tarjeta de crédito"
+    if (paymentMethod === "Tarjeta de crédito") {
+      if (!cardDetails || !cardDetails.cardNumber || !cardDetails.expiryDate || !cardDetails.cvv || !cardDetails.cardHolder) {
+        return res.status(400).json({ message: "Card details are required for credit card payment method." });
+      }
+      updates.cardDetails = cardDetails;
+    } else {
+      updates.cardDetails = undefined; // Limpiar datos de tarjeta si no es "Tarjeta de crédito"
+    }
+
     const updatedPaymentMethod = await paymentMethodsModel.findByIdAndUpdate(
       req.params.id,
-      { paymentMethod, idClient },
+      updates,
       { new: true }
     );
+
     if (!updatedPaymentMethod) {
       return res.status(404).json({ message: "Payment method not found" });
     }
+
     res.json({ message: "Payment method updated", data: updatedPaymentMethod });
   } catch (error) {
     res.status(400).json({ message: "Error updating payment method", error: error.message });
   }
 };
 
-// DELETE: Borra un método de pago en base al id
-paymentMethodsController.deletePaymentMethod = async (req, res) => {
+// DELETE: Eliminar un método de pago por ID
+paymentMethodsController.deletePaymentMethods = async (req, res) => {
   try {
     const deletedPaymentMethod = await paymentMethodsModel.findByIdAndDelete(req.params.id);
     if (!deletedPaymentMethod) {
