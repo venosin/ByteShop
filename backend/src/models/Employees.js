@@ -1,3 +1,18 @@
+/*
+    Campos:
+        name
+        lastname
+        email
+        password
+        telephone
+        dui
+        address
+        birthdate
+        hireDate
+        isssNumber
+*/
+
+
 import { Schema, model } from 'mongoose';
 
 const employeesSchema = new Schema(

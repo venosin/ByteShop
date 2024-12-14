@@ -1,3 +1,8 @@
+/*
+    Campos:
+        name
+*/
+
 import { Schema, model } from 'mongoose';
 
 const modelsSchema = new Schema({

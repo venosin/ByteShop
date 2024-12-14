@@ -1,3 +1,14 @@
+/*
+    Campos:
+        name
+        lastname
+        email
+        password
+        telephone
+        dui
+*/
+
+
 import { Schema, model } from 'mongoose';
 
 const clientsSchema = new Schema({

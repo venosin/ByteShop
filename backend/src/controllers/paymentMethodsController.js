@@ -1,5 +1,6 @@
 /**
  * TODO: ver lo de populate al obtener datos
+ * TODO: Ver lo de cardDetail solo si es tarjeta de credito
  */
 
 const paymentMethodsController = {};
@@ -47,7 +48,7 @@ paymentMethodsController.createPaymentMethods = async (req, res) => {
     });
 
     await newPaymentMethod.save();
-    res.status(201).json({ message: "Payment method created", data: newPaymentMethod });
+    res.status(201).json({ message: "Payment method created"});
   } catch (error) {
     res.status(400).json({ message: "Error creating payment method", error: error.message });
   }
@@ -80,7 +81,7 @@ paymentMethodsController.updatePaymentMethods = async (req, res) => {
       return res.status(404).json({ message: "Payment method not found" });
     }
 
-    res.json({ message: "Payment method updated", data: updatedPaymentMethod });
+    res.json({ message: "Payment method updated" });
   } catch (error) {
     res.status(400).json({ message: "Error updating payment method", error: error.message });
   }

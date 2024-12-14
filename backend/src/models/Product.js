@@ -1,3 +1,16 @@
+/*
+  Campos:
+    name
+    desciption
+    price
+    idCategory
+    stock
+    image
+    idBrand
+    idModel
+    discount
+ */
+
 import { Schema, model } from 'mongoose';
 
 const productsSchema = new Schema({
