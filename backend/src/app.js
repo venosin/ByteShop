@@ -14,6 +14,7 @@ import brandsRoutes from './routes/brands.js'
 import modelsRoutes from './routes/models.js'
 import employeesRoutes from './routes/employees.js'
 
+
 const app = express();
 
 // Settings 
@@ -44,5 +45,6 @@ app.use('/categories', categoriesRoutes);
 app.use('/brands', brandsRoutes)
 app.use('/models', modelsRoutes)
 app.use('/employees', employeesRoutes)
+
 
 export default app;

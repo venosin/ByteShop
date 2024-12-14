@@ -1,66 +1,100 @@
-const clientsController = {};
-
 import clientsModel from "../models/Client.js";
 
-// OBTENER TODOS LOS USUARIOS
+const clientsController = {};
+
+// OBTENER TODOS LOS CLIENTES
 clientsController.getClients = async (req, res) => {
-  const clients = await clientsModel.find();
-  res.json(clients);
+  try {
+    const clients = await clientsModel.find();
+    res.json(clients);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener los clientes", error: error.message });
+  }
 };
 
-// OBTENER UN USUARIO POR ID
+// OBTENER UN CLIENTE POR ID
 clientsController.getClient = async (req, res) => {
-  const user = await clientsModel.findById(req.params.id);
-  if (!user) {
-    return res.status(404).json({ message: "Usuario no encontrado" });
+  try {
+    const client = await clientsModel.findById(req.params.id);
+    if (!client) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+    res.json(client);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener el cliente", error: error.message });
   }
-  res.json(user);
 };
 
-// CREAR UN USUARIO
+// CREAR UN CLIENTE
 clientsController.createClients = async (req, res) => {
-  const { nombres, apellidos, correoElectronico, contrasena, telefono, dui } = req.body;
-  const newUser = new clientsModel({
-    nombres,
-    apellidos,
-    correoElectronico,
-    contrasena,
-    telefono,
-    dui: dui || null, // Si no se envía DUI, se establece como null
-  });
+  const { name, lastName, email, password, telephone, dui } = req.body;
 
-  await newUser.save();
-  res.status(201).json({ message: "Usuario creado con éxito", user: newUser });
+  // Validación de campos requeridos
+  if (!name || !lastName || !email || !password || !telephone) {
+    return res.status(400).json({ message: "Todos los campos son requeridos" });
+  }
+
+  try {
+    const newClient = new clientsModel({
+      name,
+      lastName,
+      email,
+      password,
+      telephone,
+      dui: dui || null, // Si no se envía DUI, se establece como null
+    });
+
+    await newClient.save();
+    res.status(201).json({ message: "Cliente creado con éxito", client: newClient });
+  } catch (error) {
+    res.status(500).json({ message: "Error al crear el cliente", error: error.message });
+  }
 };
 
-// ACTUALIZAR UN USUARIO
+// ACTUALIZAR UN CLIENTE
 clientsController.updateClients = async (req, res) => {
-  const { nombres, apellidos, correoElectronico, contrasena, telefono, dui } = req.body;
-  const updatedUser = await clientsModel.findByIdAndUpdate(
-    req.params.id,
-    {
-      nombres,
-      apellidos,
-      correoElectronico,
-      contrasena,
-      telefono,
-      dui: dui || null,
-    },
-    { new: true }
-  );
-  if (!updatedUser) {
-    return res.status(404).json({ message: "Usuario no encontrado" });
+  const { name, lastName, email, password, telephone, dui } = req.body;
+
+  // Validación de campos requeridos
+  if (!name || !lastName || !email || !password || !telephone) {
+    return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
-  res.json({ message: "Usuario actualizado con éxito", user: updatedUser });
+
+  try {
+    const updatedClient = await clientsModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        lastName,
+        email,
+        password,
+        telephone,
+        dui: dui || null, // Si no se envía DUI, se establece como null
+      },
+      { new: true }
+    );
+
+    if (!updatedClient) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+
+    res.json({ message: "Cliente actualizado con éxito", client: updatedClient });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar el cliente", error: error.message });
+  }
 };
 
-// ELIMINAR UN USUARIO
+// ELIMINAR UN CLIENTE
 clientsController.deleteClients = async (req, res) => {
-  const deletedUser = await clientsModel.findByIdAndDelete(req.params.id);
-  if (!deletedUser) {
-    return res.status(404).json({ message: "Usuario no encontrado" });
+  try {
+    const deletedClient = await clientsModel.findByIdAndDelete(req.params.id);
+    if (!deletedClient) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+    res.json({ message: "Cliente eliminado con éxito", client: deletedClient });
+  } catch (error) {
+    res.status(500).json({ message: "Error al eliminar el cliente", error: error.message });
   }
-  res.json({ message: "Usuario eliminado con éxito", user: deletedUser });
 };
 
 export default clientsController;
