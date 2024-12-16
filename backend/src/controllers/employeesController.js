@@ -66,7 +66,7 @@ employeeController.updateEmployees = async (req, res) => {
         hireDate,
         isssNumber,
       },
-      { new: true } // Devuelve el documento actualizado
+      { new: true } 
     );
 
     if (!updatedEmployee) {

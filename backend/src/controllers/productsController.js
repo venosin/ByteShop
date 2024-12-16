@@ -66,7 +66,7 @@ productsController.updateProducts = async (req, res) => {
   if (!updatedProduct) {
     return res.status(404).json({ message: "Producto no encontrado" });
   }
-  res.json({ message: "Producto actualizado con éxito", product: updatedProduct });
+  res.json({ message: "Producto actualizado con éxito" });
 };
 
 // DELETE PRODUCT
@@ -75,7 +75,7 @@ productsController.deleteProducts = async (req, res) => {
   if (!deletedProduct) {
     return res.status(404).json({ message: "Producto no encontrado" });
   }
-  res.json({ message: "Producto eliminado con éxito", product: deletedProduct });
+  res.json({ message: "Producto eliminado con éxito" });
 };
 
 export default productsController;

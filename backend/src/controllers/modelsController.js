@@ -7,7 +7,9 @@ modelsController.getModels = async (req, res) => {
     const models = await modelsModel.find();
     res.json(models);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving models", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving models", error: error.message });
   }
 };
 
@@ -20,7 +22,9 @@ modelsController.getModel = async (req, res) => {
     }
     res.json(model);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving the model", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving the model", error: error.message });
   }
 };
 
@@ -35,7 +39,9 @@ modelsController.createModels = async (req, res) => {
     await newModel.save();
     res.json({ message: ["Model saved"] });
   } catch (error) {
-    res.status(400).json({ message: "Error creating model", error: error.message });
+    res
+      .status(400)
+      .json({ message: "Error creating model", error: error.message });
   }
 };
 
@@ -53,7 +59,9 @@ modelsController.updateModels = async (req, res) => {
     }
     res.json({ message: ["Model updated"] });
   } catch (error) {
-    res.status(400).json({ message: "Error updating model", error: error.message });
+    res
+      .status(400)
+      .json({ message: "Error updating model", error: error.message });
   }
 };
 
@@ -66,7 +74,9 @@ modelsController.deleteModels = async (req, res) => {
     }
     res.json({ message: ["Model deleted"] });
   } catch (error) {
-    res.status(400).json({ message: "Error deleting model", error: error.message });
+    res
+      .status(400)
+      .json({ message: "Error deleting model", error: error.message });
   }
 };
 
