@@ -19,7 +19,7 @@ paymentMethodsController.getPaymentMethods = async (req, res) => {
 // READ: Obtener un método de pago específico
 paymentMethodsController.getPaymentMethod = async (req, res) => {
   try {
-    const paymentMethod = await paymentMethodsModel.findById(req.params.id).populate("idClient", "name email"); // Poblar idClient con datos relevantes
+    const paymentMethod = await paymentMethodsModel.findById(req.params.id)
     if (!paymentMethod) {
       return res.status(404).json({ message: "Payment method not found" });
     }
@@ -44,7 +44,7 @@ paymentMethodsController.createPaymentMethods = async (req, res) => {
     const newPaymentMethod = new paymentMethodsModel({
       paymentMethod,
       idClient,
-      cardDetails: paymentMethod === "Tarjeta de crédito" ? cardDetails : undefined // Solo guardar detalles si es necesario
+      cardDetails: cardDetails // Solo guardar detalles si es necesario
     });
 
     await newPaymentMethod.save();
