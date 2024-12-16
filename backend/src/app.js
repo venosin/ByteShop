@@ -36,7 +36,7 @@ app.use(cors());
 PD: Cors: es un mecanismo que permite que un servidor acepte solicitudes desde dominios diferentes al suyo. 
 Por defecto, los navegadores bloquean estas solicitudes para proteger datos sensibles.
 Esto permite que aplicaciones externas puedan hacer solicitudes al servidor. Por ejemplo, 
-si tu servidor está en http://api.ejemplo.com, aplicaciones desde http://frontend-app.com pueden enviar solicitudes sin ser bloqueadas.
+si el servidor está en http://api.ejemplo.com, aplicaciones desde http://frontend-app.com pueden enviar solicitudes sin ser bloqueadas.
  */
 app.use(express.json());
 

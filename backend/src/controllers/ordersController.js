@@ -6,8 +6,8 @@ const ordersController = {};
 ordersController.getOrders = async (req, res) => {
   try {
     const orders = await Orders.find()
-      .populate("idClient", "name email") // Poblar datos del cliente (ajusta los campos según tu modelo)
-      .populate("products.idProduct", "name price"); // Poblar datos del producto (ajusta los campos según tu modelo)
+      .populate("idClient", "name email") 
+      .populate("products.idProduct", "name price"); 
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Error fetching orders", error: error.message });
