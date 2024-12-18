@@ -9,7 +9,7 @@ import paymentMethodsModel from "../models/PaymentMethods.js";
 // READ: Obtener todos los métodos de pago
 paymentMethodsController.getPaymentMethods = async (req, res) => {
   try {
-    const paymentMethods = await paymentMethodsModel.find(); // Poblar idClient con datos relevantes
+    const paymentMethods = await paymentMethodsModel.find(); 
     res.json(paymentMethods);
   } catch (error) {
     res.status(500).json({ message: "Error fetching payment methods", error: error.message });
@@ -44,7 +44,7 @@ paymentMethodsController.createPaymentMethods = async (req, res) => {
     const newPaymentMethod = new paymentMethodsModel({
       paymentMethod,
       idClient,
-      cardDetails: cardDetails // Solo guardar detalles si es necesario
+      cardDetails: cardDetails 
     });
 
     await newPaymentMethod.save();
@@ -68,7 +68,7 @@ paymentMethodsController.updatePaymentMethods = async (req, res) => {
       }
       updates.cardDetails = cardDetails;
     } else {
-      updates.cardDetails = undefined; // Limpiar datos de tarjeta si no es "Tarjeta de crédito"
+      updates.cardDetails = undefined; 
     }
 
     const updatedPaymentMethod = await paymentMethodsModel.findByIdAndUpdate(

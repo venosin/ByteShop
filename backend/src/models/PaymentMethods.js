@@ -19,13 +19,13 @@ const paymentMethodsSchema = new Schema({
     },
     cardDetails: {
         cardNumber: {
-            type: String,  // Almacenar de manera encriptada 
+            type: String,  
         },
         expiryDate: {
-            type: String,  // Formato MM/AA
+            type: String,
         },
         cvv: {
-            type: String,  // Almacenar encriptado
+            type: String,  
         },
         cardHolder: {
             type: String,
@@ -33,13 +33,13 @@ const paymentMethodsSchema = new Schema({
     },
     idClient: {
         type: Schema.Types.ObjectId,
-        ref: 'Client', // Asegúrate de que este campo se refiera a tu colección de clientes
+        ref: 'Clients', 
         required: true
     },
    
 }, {
-    timestamps: true,  // Para llevar un control de cuándo fue creado/actualizado
-    strict: false  // Para permitir campos adicionales si es necesario
+    timestamps: true, 
+    strict: false  
 });
 
 export default model('paymentMethods', paymentMethodsSchema);

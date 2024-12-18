@@ -25,31 +25,7 @@ clientsController.getClient = async (req, res) => {
   }
 };
 
-// CREAR UN CLIENTE
-clientsController.createClients = async (req, res) => {
-  const { name, lastName, email, password, telephone, dui } = req.body;
 
-  // Validación de campos requeridos
-  if (!name || !lastName || !email || !password || !telephone) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  try {
-    const newClient = new clientsModel({
-      name,
-      lastName,
-      email,
-      password,
-      telephone,
-      dui: dui || null, // Si no se envía DUI, se establece como null
-    });
-
-    await newClient.save();
-    res.status(201).json({ message: "Client saved" });
-  } catch (error) {
-    res.status(500).json({ message: "Error", error: error.message });
-  }
-};
 
 // ACTUALIZAR UN CLIENTE
 clientsController.updateClients = async (req, res) => {

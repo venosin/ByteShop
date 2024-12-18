@@ -28,7 +28,7 @@ const productsSchema = new Schema({
     min: 0,
   },
   idCategory: {
-    type: Schema.Types.ObjectId, // Referencia a la colección Categorias
+    type: Schema.Types.ObjectId,
     ref: 'Categories',
     required: true,
   },
@@ -42,12 +42,12 @@ const productsSchema = new Schema({
     required: false,
   },
   idBrand: {
-    type: Schema.Types.ObjectId, // Referencia a la colección Marcas
+    type: Schema.Types.ObjectId, 
     ref: 'Brands',
     required: true,
   },
   idModel: {
-    type: Schema.Types.ObjectId, // Referencia a la colección Modelos
+    type: Schema.Types.ObjectId,
     ref: 'Models',
     required: true,
   },
@@ -55,7 +55,7 @@ const productsSchema = new Schema({
     type: Number,
     default: 0,
     min: 0,
-    max: 100, // Porcentaje de descuento
+    max: 100, 
   },
 },{
   timestamps: true,
