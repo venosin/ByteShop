@@ -29,6 +29,7 @@ registerController.register = async (req, res) => {
 
       await newClient.save();
       
+      // TODO: mejorar la manera de guardar el token
       jwt.sign({
         id: newClient._id
       },"secret123",
