@@ -30,11 +30,13 @@ registerController.register = async (req, res) => {
       await newClient.save();
       
       // TODO: mejorar la manera de guardar el token
+      // PD: El token en el registro es para entrar a la app de manera inmmediata luego de registrarme
+      // Si después de registrar al usuario se necesita verificar por correo o iniciar sesión no es necesario el token aqui
       jwt.sign({
         id: newClient._id
       },"secret123",
       {
-        expiresIn: "1d",
+        expiresIn: "30d",
       },
       (err, token) => {
         if(err) console.log(err)
