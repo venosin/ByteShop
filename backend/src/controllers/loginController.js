@@ -2,6 +2,7 @@ const loginController = {};
 import clientsModel from "../models/Client.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {config} from '../config.js';  
 
 // CREATE: Crea un nuevo modelo
 loginController.login = async (req, res) => {
@@ -25,9 +26,9 @@ loginController.login = async (req, res) => {
       {
         id: userFound._id,
       },
-      "secret123",
+      config.jwt.secret,
       {
-        expiresIn: "30d",
+        expiresIn: config.jwt.expiresIn,
       },
       (err, token) => {
         if (err) console.log(err);

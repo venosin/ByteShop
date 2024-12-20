@@ -1,13 +1,14 @@
 import nodemailer from 'nodemailer';
+import {config} from '../config.js';
 
 // Configurar el transporter
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
-  secure: true, // true for port 465, false for other ports
+  secure: true, 
   auth: {
-    user: "noreply.byteshop@gmail.com", // Credenciales de prueba
-    pass: "avoc baue sson rnon",
+    user: "noreply.byteshop@gmail.com", 
+    pass: config.email.password,
   },
 });
 
@@ -22,7 +23,6 @@ const sendEmail = async (to, subject, text, html) => {
       html, // Cuerpo del correo en HTML
     });
 
-    console.log("Correo enviado: %s", info.messageId);
     return info;
   } catch (error) {
     console.error("Error enviando correo:", error);

@@ -2,6 +2,7 @@ const registerController = {};
 import clientsModel from "../models/Client.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import {config} from '../config.js'
 
 // CREATE: Crea un nuevo modelo
 registerController.register = async (req, res) => {
@@ -34,9 +35,9 @@ registerController.register = async (req, res) => {
       // Si después de registrar al usuario se necesita verificar por correo o iniciar sesión no es necesario el token aqui
       jwt.sign({
         id: newClient._id
-      },"secret123",
+      }, config.jwt.secret,
       {
-        expiresIn: "30d",
+        expiresIn: config.jwt.expiresIn,
       },
       (err, token) => {
         if(err) console.log(err)

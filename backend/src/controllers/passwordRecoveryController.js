@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/Client.js";
 import { sendEmail, HTMLRecoveryEmail } from "../utils/passwordRecoveryMail.js";
+import { config } from "../config.js";
 
 const passwordRecoveryController = {};
 
@@ -21,7 +22,7 @@ passwordRecoveryController.requestCode = async (req, res) => {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
     // Crear token JWT con el correo del usuario y el código de 6 dígitos
-    const token = jwt.sign({ email, code }, "secret123", { expiresIn: "15m" });
+    const token = jwt.sign({ email, code }, config.jwt.secret, { expiresIn: "15m" });
 
     // Guarda el token en una cookie
     res.cookie("tokenRecoveryCode", token, {
@@ -65,7 +66,7 @@ passwordRecoveryController.verifyCode = (req, res) => {
     }
 
     // Verificar el token JWT
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, config.jwt.secret);
 
 
     // Verificar si el código es correcto
@@ -104,7 +105,7 @@ passwordRecoveryController.resetPassword = async (req, res) => {
     }
 
     // Verificar el token JWT
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, config.jwt.secret);
 
     // Extraer el email del token
     const { email } = decoded;

@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import {config} from '../config.js'
 
 export const validateAuthToken = (req, res, next) => {
   try {
@@ -14,7 +15,7 @@ export const validateAuthToken = (req, res, next) => {
     }
 
     // Verificar el token
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, config.jwt.secret);
     req.user = decoded;
 
     next(); // Continuar al siguiente middleware o controlador
