@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const authRequire = (req, res, next) => {
+export const validateAuthToken = (req, res, next) => {
   try {
     // Validar si existen cookies
     if (!req.cookies) {

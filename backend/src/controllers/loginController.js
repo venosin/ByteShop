@@ -27,7 +27,7 @@ loginController.login = async (req, res) => {
       },
       "secret123",
       {
-        expiresIn: "1d",
+        expiresIn: "30d",
       },
       (err, token) => {
         if (err) console.log(err);

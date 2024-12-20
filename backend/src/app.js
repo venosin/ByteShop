@@ -19,8 +19,9 @@ import purchasesRoutes from './routes/purchases.js'
 import loginRoutes from './routes/login.js'
 import registerRoutes from './routes/register.js'
 import logoutRoutes from './routes/logout.js'
-import {authRequire} from './middlewares/validateToken.js'
+import {validateAuthToken} from './middlewares/validateAuthToken.js'
 import cookieParser from 'cookie-parser'
+import passwordRecoveryRoutes from './routes/passwordRecovery.js'
 
 
 const app = express();
@@ -48,6 +49,7 @@ app.use('/purchases', purchasesRoutes)
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
 app.use('/logout', logoutRoutes)
+app.use('/passwordRecovery', passwordRecoveryRoutes)
 //PD: se agrega authRequire antes de la ruta para que el endpoint necesite un token
 
 

@@ -4,6 +4,8 @@
 # Ignorar node_modules en el directorio frontend
 /frontend-byteshop/node_modules
 
+/backend/.env
+
 # misc
 *.txt
 .DS_Store
