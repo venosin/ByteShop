@@ -38,7 +38,7 @@ import {validateAuthToken} from './middlewares/validateAuthToken.js'
 
 
 // Routes
-app.use('/api/products', validateAuthToken(["admin"]), productsRoutes);
+app.use('/api/products', validateAuthToken(), productsRoutes);
 app.use('/api/clients', validateAuthToken(), clientsRoutes);
 app.use('/api/categories', validateAuthToken(), categoriesRoutes);
 app.use('/api/brands', validateAuthToken(), brandsRoutes)
@@ -57,7 +57,7 @@ app.use('/api/registerEmployees', registerEmployeesRoutes)
 app.use('/api/passwordRecovery', passwordRecoveryRoutes)
 
 
-//PD: se agrega validateAuthToken(["client"]) o (["employee"])  sin parametros antes de la ruta para que el endpoint necesite un token
+//PD: se agrega validateAuthToken(["client"]), (["employee"]) o (["admin"]) sin parametros antes de la ruta para que el endpoint necesite un token
 
 
 export default app;
