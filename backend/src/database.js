@@ -10,12 +10,13 @@
 // Imports
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import { config } from './config.js'
 
 // Cargar variables de entorno desde el archivo .env
 dotenv.config();
 
 // Configurar la URI o dirección de la base de datos
-const URI = process.env.MONGODB_URI || "mongodb://localhost:27017/byteShop";
+const URI = config.db.URI;
 
 // Conexión a la base de datos en MongoDB
 mongoose.connect(URI);

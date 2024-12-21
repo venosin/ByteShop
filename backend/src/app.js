@@ -17,11 +17,12 @@ import paymentMethodsRoutes from './routes/paymentMethods.js'
 import ordersRoutes from './routes/orders.js'
 import purchasesRoutes from './routes/purchases.js'
 import loginRoutes from './routes/login.js'
-import registerRoutes from './routes/register.js'
+import registerClientRoutes from './routes/registerClient.js'
+import registerEmployeesRoutes from './routes/registerEmployee.js'
 import logoutRoutes from './routes/logout.js'
-import {validateAuthToken} from './middlewares/validateAuthToken.js'
 import cookieParser from 'cookie-parser'
 import passwordRecoveryRoutes from './routes/passwordRecovery.js'
+
 
 
 const app = express();
@@ -33,24 +34,30 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+import {validateAuthToken} from './middlewares/validateAuthToken.js'
 
 
 // Routes
-//El sistema web puede acceder a las siguientes rutas:
-app.use('/products', productsRoutes);
-app.use('/clients', clientsRoutes);
-app.use('/categories', categoriesRoutes);
-app.use('/brands', brandsRoutes)
-app.use('/models', modelsRoutes)
-app.use('/employees', employeesRoutes)
-app.use('/paymentMethods', paymentMethodsRoutes)
-app.use('/orders', ordersRoutes)
-app.use('/purchases', purchasesRoutes)
-app.use('/login', loginRoutes)
-app.use('/register', registerRoutes)
-app.use('/logout', logoutRoutes)
-app.use('/passwordRecovery', passwordRecoveryRoutes)
-//PD: se agrega authRequire antes de la ruta para que el endpoint necesite un token
+app.use('/api/products', validateAuthToken(), productsRoutes);
+app.use('/api/clients', validateAuthToken(), clientsRoutes);
+app.use('/api/categories', validateAuthToken(), categoriesRoutes);
+app.use('/api/brands', validateAuthToken(), brandsRoutes)
+app.use('/api/models', validateAuthToken(), modelsRoutes)
+app.use('/api/employees', validateAuthToken(["employee"]), employeesRoutes)
+app.use('/api/paymentMethods', validateAuthToken(), paymentMethodsRoutes)
+app.use('/api/orders', validateAuthToken(), ordersRoutes)
+app.use('/api/purchases', validateAuthToken(), purchasesRoutes)
+app.use('/api/logout', validateAuthToken(), logoutRoutes)
+
+
+// Rutas publicas que no necesitan haber iniciado sesión 
+app.use('/api/login', loginRoutes)
+app.use('/api/registerClients', registerClientRoutes)
+app.use('/api/registerEmployees', registerEmployeesRoutes)
+app.use('/api/passwordRecovery', passwordRecoveryRoutes)
+
+
+//PD: se agrega validateAuthToken(["client"]) o (["employee"])  sin parametros antes de la ruta para que el endpoint necesite un token
 
 
 export default app;

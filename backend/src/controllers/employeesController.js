@@ -25,30 +25,6 @@ employeeController.getEmployee = async (req, res) => {
   }
 };
 
-// CREATE: Crear un nuevo empleado
-employeeController.createEmployees = async (req, res) => {
-  try {
-    const { name, lastName, email, password, telephone, dui, address, birthdate, hireDate, isssNumber } = req.body;
-    const newEmployee = new Employee({
-      name,
-      lastName,
-      email,
-      password,
-      telephone,
-      dui,
-      address,
-      birthdate,
-      hireDate,
-      isssNumber,
-    });
-
-    await newEmployee.save();
-    res.status(201).json({ message: "Employee created successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error creating employee", error });
-  }
-};
-
 // UPDATE: Actualizar un empleado existente por ID
 employeeController.updateEmployees = async (req, res) => {
   try {

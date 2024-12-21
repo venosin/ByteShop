@@ -1,38 +1,61 @@
-const loginController = {};
 import clientsModel from "../models/Client.js";
+import employeesModel from "../models/Employees.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { config } from "../config.js";
 
-// CREATE: Crea un nuevo modelo
+const loginController = {};
+
+// CREATE: Login para clientes y empleados
 loginController.login = async (req, res) => {
   const { email, password } = req.body;
 
   // Validación de campos requeridos
-  if ( !email || !password ) {
+  if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
-    const userFound = await clientsModel.findOne({ email });
-    if (!userFound) return res.status(400).json({ message: "User not found" });
+    // Buscar primero en la colección de clientes
+    let userFound = await clientsModel.findOne({ email });
+    let userType = "client"; 
 
+    // Si no es un cliente, buscar en la colección de empleados
+    if (!userFound) {
+      userFound = await employeesModel.findOne({ email });
+      userType = "employee"; 
+    }
+
+    // Si no se encuentra en ninguna colección, devolver error
+    if (!userFound) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Validar la contraseña
     const isMatch = await bcrypt.compare(password, userFound.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
 
-    if (!isMatch) return res.status(404).json({ message: "Invalid password" });
-
-    // TODO: mejorar la manera de guardar el token
+    // Generar el token JWT
     jwt.sign(
       {
         id: userFound._id,
+        userType,
       },
-      "secret123",
+      config.jwt.secret,
       {
-        expiresIn: "30d",
+        expiresIn: config.jwt.expiresIn,
       },
       (err, token) => {
-        if (err) console.log(err);
-        res.cookie("token", token);
-        res.status(201).json({ message: "Client login" });
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: "Error generating token" });
+        }
+
+        // Guardar el token en una cookie
+        res.cookie("authToken", token, { httpOnly: true });
+        res.status(200).json({ message: `${userType} login successful`, token });
       }
     );
   } catch (error) {
