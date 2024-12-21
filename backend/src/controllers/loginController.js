@@ -6,7 +6,7 @@ import { config } from "../config.js";
 
 const loginController = {};
 
-// CREATE: Login para clientes y empleados
+// CREATE: Login para clientes, empleados y administrador
 loginController.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -16,25 +16,36 @@ loginController.login = async (req, res) => {
   }
 
   try {
-    // Buscar primero en la colección de clientes
-    let userFound = await clientsModel.findOne({ email });
-    let userType = "client"; 
-
-    // Si no es un cliente, buscar en la colección de empleados
-    if (!userFound) {
+    let userFound;
+    let userType; 
+    
+    if (email === config.admin.email && password === config.admin.password) {
+      userType = "admin"; 
+      userFound = { _id: "admin" }; 
+    } else {
+      // Buscar primero en la colección de empleados
       userFound = await employeesModel.findOne({ email });
-      userType = "employee"; 
+        userType = "employee"; 
+    
+      // Si no es un empleado, buscar en la colección de clientes
+      if (!userFound) {
+        userFound = await clientsModel.findOne({ email });
+        userType = "client"; 
+      }
     }
-
-    // Si no se encuentra en ninguna colección, devolver error
+  
+    // Si no se encuentra en ninguna colección (ni cliente ni empleado), devolver error
     if (!userFound) {
+      console.log("No se encuentra en ninguna colección");
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Validar la contraseña
-    const isMatch = await bcrypt.compare(password, userFound.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid password" });
+    // Si no es el administrador, validar la contraseña
+    if (userType !== "admin") {
+      const isMatch = bcrypt.compare(password, userFound.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid password" });
+      }
     }
 
     // Generar el token JWT
