@@ -38,7 +38,7 @@ import {validateAuthToken} from './middlewares/validateAuthToken.js'
 
 
 // Routes
-app.use('/api/products', validateAuthToken(), productsRoutes);
+app.use('/api/products', validateAuthToken(["admin"]), productsRoutes);
 app.use('/api/clients', validateAuthToken(), clientsRoutes);
 app.use('/api/categories', validateAuthToken(), categoriesRoutes);
 app.use('/api/brands', validateAuthToken(), brandsRoutes)
