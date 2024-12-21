@@ -1,11 +1,11 @@
-const registerController = {};
+const registerClientController = {};
 import clientsModel from "../models/Client.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import {config} from '../config.js'
 
 // CREATE: Crea un nuevo modelo
-registerController.register = async (req, res) => {
+registerClientController.register = async (req, res) => {
     const { name, lastName, email, password, telephone, dui } = req.body;
   
     // Validación de campos requeridos
@@ -41,7 +41,7 @@ registerController.register = async (req, res) => {
       },
       (err, token) => {
         if(err) console.log(err)
-        res.cookie('token', token)
+        res.cookie('authToken', token)
         res.status(201).json({ message: "Client register"});
       }
     )
@@ -51,4 +51,4 @@ registerController.register = async (req, res) => {
     }
 };
 
-export default registerController;
+export default registerClientController;

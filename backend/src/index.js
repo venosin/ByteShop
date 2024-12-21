@@ -8,6 +8,7 @@
 
 import app from './app.js'; // Importa la configuración principal de la aplicación
 import './database.js';
+
 import {config} from './config.js';
 
 // Función principal para iniciar el servidor
