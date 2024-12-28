@@ -32,3 +32,4 @@ Cosas por hacer (borrar):
 -Hacer una prueba con Resend para confirmación de correo electronico
 -Implementar Stripe para pasarela de pago
 -Investigar sobre cloudfare para ciberseguridad
+-https://www.chakra-ui.com/ para componentes ya hechos
