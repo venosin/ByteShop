@@ -30,4 +30,5 @@ El **frontend** de ByteShop está construido con **React**, que proporciona una 
 
 Cosas por hacer (borrar):
 -Hacer una prueba con Resend para confirmación de correo electronico
--Implementar Stripe para pasarela de pagp
+-Implementar Stripe para pasarela de pago
+-Investigar sobre cloudfare para ciberseguridad
