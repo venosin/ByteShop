@@ -33,3 +33,4 @@ Cosas por hacer (borrar):
 -Implementar Stripe para pasarela de pago
 -Investigar sobre cloudfare para ciberseguridad
 -https://www.chakra-ui.com/ para componentes ya hechos
+la mejor página de componentes: https://mui.com/material-ui/all-components/
