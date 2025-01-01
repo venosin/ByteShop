@@ -29,6 +29,7 @@ El backend maneja toda la lógica del servidor, la autenticación de usuarios, e
 El **frontend** de ByteShop está construido con **React**, que proporciona una interfaz interactiva y dinámica para que los usuarios naveguen por los productos, los agreguen al carrito y gestionen su cuenta. React se comunica con el backend a través de la API RESTful para realizar acciones como la autenticación y la compra de productos.
 
 Cosas por hacer (borrar):
+-hacer hoja de referencia con una fuente como roboto
 -POner un issue que se exportaran por defecto las funciones del controlador pero en una practica de clase
 -Validaciones desde el backend: verificar que el correo electronico no exista en la base de datos (zod? idk)
 -Hacer una prueba con Resend para confirmación de correo electronico
