@@ -28,4 +28,25 @@ El backend maneja toda la lógica del servidor, la autenticación de usuarios, e
 
 El **frontend** de ByteShop está construido con **React**, que proporciona una interfaz interactiva y dinámica para que los usuarios naveguen por los productos, los agreguen al carrito y gestionen su cuenta. React se comunica con el backend a través de la API RESTful para realizar acciones como la autenticación y la compra de productos.
 
+Cosas por hacer (borrar):
+-Mapar de ruta de aprendizaje de MERN: https://roadmap.sh/full-stack
+-hacer hoja de referencia con una fuente como roboto
+-POner un issue que se exportaran por defecto las funciones del controlador pero en una practica de clase
+-Validaciones desde el backend: verificar que el correo electronico no exista en la base de datos (zod? idk)
+-Hacer una prueba con Resend para confirmación de correo electronico
+-Implementar Stripe para pasarela de pago
+-Investigar sobre cloudfare para ciberseguridad
+-https://www.chakra-ui.com/ para componentes ya hechos
+la mejor página de componentes: https://mui.com/material-ui/all-components/
+otra pagina mwh https://ant.design/components/overview/
+pagina buena de componentes https://blueprintjs.com/docs/#core/components/card-list
+pagina con componentes pero que buen toast: https://fluent2.microsoft.design/components/web/react/toast/usage
+pocos componentes pero todo se parece a iphone: https://headlessui.com/
+por que hay tanta documentación? https://marmelab.com/react-admin/Tutorial.html
+componentes pero tiene graficos y mapamundi: https://v2.grommet.io/components
+ok que buenos componentes muy buena pagina: https://evergreen.segment.com/components
+que montón de componentes pero los graficos están mucho mejores: https://mantine.dev/charts/scatter-chart/
+![image](https://github.com/user-attachments/assets/0a872cf5-a164-4599-9a79-068baf2942c7)
+pagina muy cara pero con estos graficos gratis en js https://nextui.pro/components/charts/Bars-and-Circles
+
 
