@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../index.css'
 
 const RegisterClientForm = () => {
 
@@ -16,7 +15,7 @@ const [dui, setDui ] = useState('')
     try {
       const formData = {  
         name: name,
-        lastname: lastname,
+        lastName: lastname,
         email: email,
         password: password,
         telephone: telephone,
@@ -28,14 +27,7 @@ const [dui, setDui ] = useState('')
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          "name": "John",
-          "lastname": "Doe",
-          "email": "john.doe@example.com",
-          "password": "password123",
-          "telephone": "12345678",
-          "dui": "12345678-9"
-        }),
+        body: JSON.stringify(formData),
       });
 
       console.log('Datos enviados:', formData); 

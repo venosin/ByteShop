@@ -1,30 +1,51 @@
 import React, { useState } from 'react';
 
 const RegisterEmployeeForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
-    email: '',
-    password: '',
-    telephone: '',
-    dui: '',
-    address: '',
-    birthdate: '',
-    hireDate: '',
-    isssNumber: '',
-  });
+ 
+  const [name, setName ] = useState('')
+  const [lastName, setLastName ] = useState('') 
+  const [email, setEmail ] = useState('') 
+  const [password, setPassword ] = useState('') 
+  const [telephone, setTelephone ] = useState('') 
+  const [dui, setDui ] = useState('') 
+  const [address, setAddress ] = useState('') 
+  const [birthdate, setBirthdate ] = useState('') 
+  const [hireDate, setHireDate ] = useState('') 
+  const [isssNumber, setIsssNumber ] = useState('') 
 
-  const handleChange = (e) => {
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [e.target.name]: e.target.value,
-    }));
+  //funcion para limpiar los campos
+  const clearFields = () => {
+    setName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setTelephone('');
+    setDui('');
+    setAddress('');
+    setBirthdate('');
+    setHireDate('');
+    setIsssNumber('');
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/registerEmployees', {
+
+      const formData = {
+        name: name,
+        lastName: lastName,
+        email: email,
+        password: password,
+        telephone: telephone,
+        dui: dui,
+        address: address,
+        birthdate: birthdate,
+        hireDate: hireDate,
+        isssNumber: isssNumber,
+      };
+
+      const response = await fetch('http://localhost:4000/api/registerEmployees', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,18 +58,7 @@ const RegisterEmployeeForm = () => {
       }
 
       alert('Empleado registrado exitosamente');
-      setFormData({
-        name: '',
-        lastname: '',
-        email: '',
-        password: '',
-        telephone: '',
-        dui: '',
-        address: '',
-        birthdate: '',
-        hireDate: '',
-        isssNumber: '',
-      });
+      clearFields();
     } catch (error) {
       alert('Error al registrar empleado: ' + error.message);
     }
@@ -64,8 +74,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="name"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(e)=> setName(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -77,8 +87,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="lastname"
             name="lastname"
-            value={formData.lastname}
-            onChange={handleChange}
+            value={lastName}
+            onChange={(e)=> setLastName(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -90,8 +100,8 @@ const RegisterEmployeeForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e)=> setEmail(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -103,8 +113,8 @@ const RegisterEmployeeForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={( e )=> setPassword(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -116,8 +126,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="telephone"
             name="telephone"
-            value={formData.telephone}
-            onChange={handleChange}
+            value={telephone}
+            onChange={(e)=> setTelephone(e.target.value)}
             required
             pattern="[0-9]{8}"
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -130,8 +140,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="dui"
             name="dui"
-            value={formData.dui}
-            onChange={handleChange}
+            value={dui}
+            onChange={(e)=> setDui(e.target.value)}
             pattern="[0-9]{8}-[0-9]{1}"
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -143,8 +153,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="address"
             name="address"
-            value={formData.address}
-            onChange={handleChange}
+            value={address}
+            onChange={(e)=> setAddress(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -156,8 +166,8 @@ const RegisterEmployeeForm = () => {
             type="date"
             id="birthdate"
             name="birthdate"
-            value={formData.birthdate}
-            onChange={handleChange}
+            value={birthdate}
+            onChange={(e)=> setBirthdate(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -169,8 +179,8 @@ const RegisterEmployeeForm = () => {
             type="date"
             id="hireDate"
             name="hireDate"
-            value={formData.hireDate}
-            onChange={handleChange}
+            value={hireDate}
+            onChange={(e)=> setHireDate(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
@@ -182,8 +192,8 @@ const RegisterEmployeeForm = () => {
             type="text"
             id="isssNumber"
             name="isssNumber"
-            value={formData.isssNumber}
-            onChange={handleChange}
+            value={isssNumber}
+            onChange={(e)=> setIsssNumber(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />

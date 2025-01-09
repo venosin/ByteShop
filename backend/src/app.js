@@ -31,7 +31,10 @@ const app = express();
 // TODO: aqui van algunos ajustes
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Dominio del cliente
+  credentials: true, // Permitir envío de cookies y credenciales
+}));
 app.use(express.json());
 app.use(cookieParser());
 import {validateAuthToken} from './middlewares/validateAuthToken.js'
