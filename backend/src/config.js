@@ -21,12 +21,8 @@ export const config = {
     password: process.env.ADMIN_PASSWORD,
   },
   paypal: {
-    clientId:
-      process.env.PAYPAL_API_CLIENT_ID ||
-      "AZ0-pDM6302pnbZRtN2YNlHYgoelY2vINJqjtizAL7uDjHSmH9rOzsUbtUoIB_YbEbe-umnL7q5ucUyx",
-    clientSecret:
-      process.env.PAYPAL_API_SECRET ||
-      "EDZPnvw-Eq0DslC2ld8ugFf96fheV-Il5bXHJnfMGEzRnl8WKcD7UIoLygJEeuBaZWV3rL63YmQUaHyf",
+    clientId: process.env.PAYPAL_API_CLIENT_ID,
+    clientSecret: process.env.PAYPAL_API_SECRET,
     PAYPAL_API: "https://api-m.sandbox.paypal.com/",
   },
 };

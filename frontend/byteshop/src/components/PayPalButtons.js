@@ -9,6 +9,12 @@ const PayPalButton = () => {
       // Renderizar el botón de PayPal
       window.paypal
         .Buttons({
+          style: {
+            color: "blue", // Colores disponibles: "blue", "gold", "silver", "white", "black"
+            shape: "pill", // Formas: "rect" (rectangular), "pill" (redondeado)
+            label: "pay", // Opciones: "paypal", "checkout", "pay", "installment"
+            tagline: false, // Muestra o oculta la línea de texto debajo del botón
+          },
           createOrder: async () => {
             // Llamada al backend para crear un pedido
             const response = await fetch(
@@ -18,6 +24,7 @@ const PayPalButton = () => {
               }
             );
             const orderData = await response.json();
+
             return orderData.id; // Retorna el ID del pedido
           },
           onApprove: async (data) => {
@@ -29,6 +36,7 @@ const PayPalButton = () => {
                 headers: {
                   "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify({ orderID: data.orderID }),
               }
             );

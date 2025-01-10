@@ -1,11 +1,10 @@
 // controllers/paymentController.js
 import paypal from "@paypal/checkout-server-sdk";
+import { config } from "../config.js";
 
 // Configuración de PayPal
-const clientId =
-  "AZ0-pDM6302pnbZRtN2YNlHYgoelY2vINJqjtizAL7uDjHSmH9rOzsUbtUoIB_YbEbe-umnL7q5ucUyx";
-const clientSecret =
-  "EDZPnvw-Eq0DslC2ld8ugFf96fheV-Il5bXHJnfMGEzRnl8WKcD7UIoLygJEeuBaZWV3rL63YmQUaHyf";
+const clientId = config.paypal.clientId;
+const clientSecret = config.paypal.clientSecret;
 
 const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
@@ -27,6 +26,10 @@ paymentController.createPayment = async (req, res) => {
         },
       },
     ],
+    application_context: {
+      locale: "es-SV", // Idioma español con configuración de El Salvador
+      shipping_preference: "NO_SHIPPING", // Desactiva la solicitud de dirección de envío
+    },
   });
 
   try {
