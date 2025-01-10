@@ -1,7 +1,8 @@
-import RegisterClientForm from './screens/RegisterClientForm';
-import RegisterEmployeeForm from './screens/RegisterEmployeeForm';
-import LoginScreen from './screens/LoginScreen';
-import RegisterModelForm from './screens/RegisterModelForm';
+import RegisterClientForm from "./screens/RegisterClientForm";
+import RegisterEmployeeForm from "./screens/RegisterEmployeeForm";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterModelForm from "./screens/RegisterModelForm";
+import PayPalButton from "./components/PayPalButtons";
 
 function App() {
   return (
@@ -9,6 +10,8 @@ function App() {
       <LoginScreen />
 
       <RegisterModelForm />
+
+      <PayPalButton />
     </>
   );
 }
