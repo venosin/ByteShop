@@ -16,7 +16,7 @@ const orderSchema = new Schema(
     idClient: {
       type: Schema.Types.ObjectId,
       ref: "Clients", // Referencia a la colección de clientes
-      required: true,
+      required: [true, "El ID del cliente es obligatorio"],
     },
     products: [
       {
@@ -26,22 +26,28 @@ const orderSchema = new Schema(
           required: true,
         },
         quantity: {
-          type: Number, // Cantidad de este producto
+          type: Number,
+          min: [1, "La cantidad debe ser al menos 1"], // Cantidad mínima
           required: true,
         },
         subtotal: {
-          type: Number, // Subtotal para este producto (cantidad * precio unitario)
+          type: Number,
           required: true,
+          min: [0, "El subtotal no puede ser negativo"],
         },
       },
     ],
     total: {
       type: Number, // Total del pedido (suma de los subtotales de los productos)
       required: true,
+      min: [0, "El total no puede ser negativo"],
     },
     status: {
       type: String,
-      enum: ["Pending", "Completed", "Cancelled"], // Estado del pedido
+      enum: {
+        values: ["Pending", "Paid"],
+        message: "El estado del pedido debe ser 'Pending' o 'Paid'",
+      },
       default: "Pending",
     },
   },
