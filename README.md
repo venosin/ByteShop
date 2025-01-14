@@ -30,4 +30,6 @@ El **frontend** de ByteShop está construido con **React**, que proporciona una 
 
 --
 Agregar autenticacion con Google
-Muestra una pantalla de bienvenida para nuevos usuarios con una guía rápida o tutorial.
+Panalla de inicio? como presentación y con los botones de iniciar sesion y regitrarse
+por ejemplo zona igital que puedo ver todos los productos pero puedo comprar solo si inicie sesion, 
+
