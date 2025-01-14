@@ -30,3 +30,4 @@ El **frontend** de ByteShop está construido con **React**, que proporciona una 
 
 --
 Agregar autenticacion con Google
+Muestra una pantalla de bienvenida para nuevos usuarios con una guía rápida o tutorial.
