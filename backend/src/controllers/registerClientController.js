@@ -51,6 +51,13 @@ registerClientController.register = async (req, res) => {
       { expiresIn: "2h" } // El JWT expirará en 2 horas
     );
 
+    // Guardar el token en una cookie
+    res.cookie("verificationToken", tokenCode, {
+      httpOnly: true, // La cookie no será accesible desde JavaScript
+      secure: process.env.NODE_ENV === "production", // Solo se envía en HTTPS si estás en producción
+      maxAge: 2 * 60 * 60 * 1000, // Duración de la cookie: 2 horas
+    });
+
     // Enviar correo electrónico con el código de verificación (JWT)
     const transporter = nodemailer.createTransport({
       service: "gmail", // Usa tu servicio de correo preferido
@@ -88,46 +95,41 @@ registerClientController.register = async (req, res) => {
 };
 
 // Verificación del correo electrónico al recibir el token
-registerClientController.verifyEmail = async (req, res) => {
-  const { token } = req.body; // Este es el token JWT que el usuario recibe en el correo
+registerClientController.verifyCodeEmail = async (req, res) => {
+  const { verificationCode } = req.body;
+  const token = req.cookies.verificationToken; // Obtener el token de la cookie
 
   if (!token) {
-    return res.status(400).json({ message: "Verification token is required" });
+    return res.status(401).json({ message: "No verification token provided" });
   }
 
   try {
     // Verificar y decodificar el JWT
-    jwt.verify(token, config.jwt.secret, async (err, decoded) => {
-      if (err) {
-        return res.status(400).json({ message: "Invalid or expired token" });
-      }
+    const decoded = jwt.verify(token, config.jwt.secret);
+    const { email, verificationCode: storedCode } = decoded;
 
-      // Obtener la información decodificada del JWT
-      const { email, verificationCode, expiresAt } = decoded;
+    // Comparar el código recibido con el almacenado en el JWT
+    if (verificationCode !== storedCode) {
+      return res.status(400).json({ message: "Invalid verification code" });
+    }
 
-      // Verificar si el token ha expirado
-      if (Date.now() > expiresAt) {
-        return res
-          .status(400)
-          .json({ message: "Verification token has expired" });
-      }
+    // Marcar al cliente como verificado
+    const client = await clientsModel.findOne({ email });
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
 
-      // Aquí puedes realizar alguna acción, por ejemplo, marcar al cliente como verificado
-      // Buscar al cliente en la base de datos por su correo electrónico
-      const client = await clientsModel.findOne({ email });
+    // Actualizar el campo de verificación
+    client.isVerified = true;
+    await client.save();
+    // Limpiar la cookie después de la verificación
+    res.clearCookie("verificationToken");
 
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-
-      // Actualizar al cliente como verificado
-      client.isVerified = true;
-      await client.save();
-
-      return res.status(200).json({ message: "Email verified successfully" });
-    });
+    res.status(200).json({ message: "Email verified successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error verifying email", error: error.message });
   }
 };
 
