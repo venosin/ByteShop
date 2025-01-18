@@ -34,13 +34,22 @@ registerEmployeeController.register = async (req, res) => {
   }
 
   try {
+    // Verificar si el empleado ya existe
+    const existingClient = await clientsModel.findOne({ email });
+    if (existingClient) {
+      return res.status(409).json({ message: "Client already exists" }); // Código 409: Conflicto
+    }
     // Validación extra: formato de teléfono y DUI
     if (!/^\d{8}$/.test(telephone)) {
-      return res.status(400).json({ message: "Invalid telephone format. Must be 8 digits." });
+      return res
+        .status(400)
+        .json({ message: "Invalid telephone format. Must be 8 digits." });
     }
 
     if (!/^\d{8}-\d$/.test(dui)) {
-      return res.status(400).json({ message: "Invalid DUI format. Must follow XXXXXXXX-X." });
+      return res
+        .status(400)
+        .json({ message: "Invalid DUI format. Must follow XXXXXXXX-X." });
     }
 
     // Hashear la contraseña
@@ -74,7 +83,9 @@ registerEmployeeController.register = async (req, res) => {
       }
     );
   } catch (error) {
-    res.status(500).json({ message: "Error registering employee", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error registering employee", error: error.message });
   }
 };
 

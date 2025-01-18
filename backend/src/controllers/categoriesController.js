@@ -42,7 +42,7 @@ categoriesController.updateCategories = async (req, res) => {
   const { name, description } = req.body;
   await categoriesModel.findByIdAndUpdate(req.params.id, {
     name: name,
-    description: description
+    description: description,
   });
   res.json({ message: ["Categories updated"] });
 };

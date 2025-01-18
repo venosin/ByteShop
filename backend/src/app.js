@@ -13,7 +13,6 @@ import categoriesRoutes from "./routes/categories.js";
 import brandsRoutes from "./routes/brands.js";
 import modelsRoutes from "./routes/models.js";
 import employeesRoutes from "./routes/employees.js";
-import paymentMethodsRoutes from "./routes/paymentMethods.js";
 import ordersRoutes from "./routes/orders.js";
 import purchasesRoutes from "./routes/purchases.js";
 import loginRoutes from "./routes/login.js";
@@ -23,6 +22,9 @@ import logoutRoutes from "./routes/logout.js";
 import cookieParser from "cookie-parser";
 import passwordRecoveryRoutes from "./routes/passwordRecovery.js";
 import paymentRoutes from "./routes/payment.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -40,7 +42,7 @@ app.use(express.json());
 app.use(cookieParser());
 import { validateAuthToken } from "./middlewares/validateAuthToken.js";
 
-// Routes
+// Routescon validación de inicio de sesión
 /*
 app.use("/api/products", validateAuthToken(), productsRoutes);
 app.use("/api/clients", validateAuthToken(), clientsRoutes);
@@ -59,8 +61,7 @@ app.use("/api/clients", clientsRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/brands", brandsRoutes);
 app.use("/api/models", modelsRoutes);
-app.use("/api/employees", validateAuthToken(["employee"]), employeesRoutes);
-app.use("/api/paymentMethods", paymentMethodsRoutes);
+app.use("/api/employees", employeesRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/purchases", purchasesRoutes);
 app.use("/api/logout", logoutRoutes);

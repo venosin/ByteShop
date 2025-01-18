@@ -1,20 +1,23 @@
+/*
+  Campos:
+    idOrder
+    address
+*/
+
 import { Schema, model } from "mongoose";
 
 const purchaseSchema = new Schema(
   {
     idOrder: {
       type: Schema.Types.ObjectId,
-      ref: "Orders", 
+      ref: "Orders",
       required: true,
     },
-    idPaymentMethod: {
-      type: Schema.Types.ObjectId, 
-      ref: "paymentMethods", 
-      required: true,
-    },
+
     address: {
       type: String,
       required: true,
+      minlength: [10, "La dirección debe tener al menos 10 caracteres"],
     },
   },
   {
