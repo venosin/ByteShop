@@ -17,7 +17,7 @@ const RegisterModelForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Incluir cookies en la solicitud
+        credentials: 'include', // Incluir cookies en la solicitud sin esto no lee la sesión el navegador
         body: JSON.stringify(formData),
       });
 
