@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginScreen = () => {
+
+
+  const navigate = useNavigate();
+
+  const navegarrr = () => {
+    // Aquí puedes agregar la lógica de autenticación
+    navigate('/register');
+  };
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
@@ -93,7 +103,7 @@ const LoginScreen = () => {
         </div>
 
         <button
-          type="submit"
+          onClick={navegarrr}
           className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Iniciar Sesión
