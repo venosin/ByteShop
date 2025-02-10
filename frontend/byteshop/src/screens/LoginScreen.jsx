@@ -1,47 +1,23 @@
+// src/LoginScreen.js
 import React, { useState } from 'react';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/AuthContext';  // Importa el hook del contexto
 
 const LoginScreen = () => {
-
-
   const navigate = useNavigate();
-
-  const navegarrr = () => {
-    // Aquí puedes agregar la lógica de autenticación
-    navigate('/register');
-  };
-
+  const { login } = useAuth();  // Desestructuramos la función login del contexto
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); 
-
-  const endSesion = async () => {  
-    try {
-      const response = await fetch('http://localhost:4000/api/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Incluir cookies en la solicitud
-      });
-    } catch (error) {
-      alert('Error al cerrar sesión: ' + error.message);
-    }
-  };
-
-
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       const formData = { 
         email: email,
         password: password
       };
-
+/*
       const response = await fetch('http://localhost:4000/api/login', {
         method: 'POST',
         headers: {
@@ -57,16 +33,12 @@ const LoginScreen = () => {
       }
 
       alert(`${data.message}`);
-      // Guardar el token en localStorage o manejar la sesión según sea necesario
-    // localStorage.setItem('testt', data.token);
+      */
+      // Usamos el contexto para gestionar el login
+      //login(data.token);
 
-      // Guardar el token en las cookies
-    //document.cookie = `authToken=${data.token}; path=/; HttpOnly; Secure`;
-     Cookies.set('authToken', data.token, { path: '/', secure: true });
-
-
-
-
+      // Redirigir al dashboard
+      navigate('/dashboard');
     } catch (error) {
       alert('Error al iniciar sesión: ' + error.message);
     }
@@ -96,27 +68,19 @@ const LoginScreen = () => {
             id="password"
             name="password"
             value={password}
-         onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
           />
         </div>
 
         <button
-          onClick={navegarrr}
+          type="submit"
           className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Iniciar Sesión
         </button>
-
       </form>
-      <button
-      type="button"
-      onClick={() =>endSesion()}
-      className="w-full bg-red-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-4"
-    >
-      Cerrar Sesión
-    </button>
     </div>
   );
 };
