@@ -10,7 +10,7 @@ export const config = {
     port: process.env.PORT || 4000,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET || "secreto123",
     expiresIn: process.env.JWT_EXPIRES_IN || "30d",
   },
   email: {
