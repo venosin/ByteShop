@@ -35,7 +35,7 @@ registerEmployeeController.register = async (req, res) => {
 
   try {
     // Verificar si el empleado ya existe
-    const existingClient = await clientsModel.findOne({ email });
+    const existingClient = await employeesModel.findOne({ email });
     if (existingClient) {
       return res.status(409).json({ message: "Client already exists" }); // Código 409: Conflicto
     }
