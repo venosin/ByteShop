@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';  // Importa el hook del contexto
+import { useAuth } from '../context/AuthContext'; // Importa el hook del contexto
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { mensaje } = useAuth();  // Desestructuramos la función login del contexto
+  const { isAuthenticated, mensaje, logout } = useAuth(); // Obtener estado de autenticación, mensaje y función de logout del contexto
+
+  // Verificar si el usuario está autenticado, si no, redirigir al login
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleNavigation = (route) => {
     navigate(route);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Incluir cookies en la solicitud
+      });
+      
+      if (!response.ok) {
+        throw new Error('Error al cerrar sesión');
+      }
+      
+      logout(); // Eliminar la sesión del contexto
+      navigate('/'); // Redirigir al login
+    } catch (error) {
+      alert('Error al cerrar sesión: ' + error.message);
+    }
   };
 
   return (
@@ -67,8 +95,11 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Puedes agregar más enlaces para otros CRUds como 'Pedidos', 'Reportes', etc. */}
+        {/* Botón de Cerrar Sesión */}
+        <div className="mt-4 text-center">
+          <button className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
         </div>
       </div>
     </div>
