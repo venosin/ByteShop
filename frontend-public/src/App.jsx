@@ -1,17 +1,23 @@
 import React , {useEffect} from 'react'
-import ListEmployees from './pages/ListEmployees'
 import Employees from './pages/Employees'
-import RegisterEmployees from './pages/RegisterEmployees'
+import {BrowserRouter as Router, Route, Routes}  from 'react-router-dom'
+
 
 function App() {
 
   return (
     <>
-  <h1 className="text-2xl font-bold underline">
-    Hello world!
+  <h1 className="text-2xl font-bold underline text-center">
+    ByteShop
   </h1>
-  <RegisterEmployees />
-  <ListEmployees />
+
+    <Router>
+      <Routes>
+        <Route path="/" element={<Employees />} />
+
+      </Routes>
+    </Router>
+
     </>
   )
 }

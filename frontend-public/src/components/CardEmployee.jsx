@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CardEmployee = ({employee}) => {
+const CardEmployee = ({employee, deleteEmployee}) => {
   
     if (!employee) {
         return <div className="text-center text-gray-500">Loading...</div>;
@@ -33,6 +33,13 @@ const CardEmployee = ({employee}) => {
                 <p className="text-gray-600">
                     <span className="font-semibold">ISSS Number:</span> {employee.isssNumber}
                 </p>
+                <p>
+                   id:  {employee._id}
+                </p>
+                <button className="mt-4 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+                onClick={() => {deleteEmployee(employee._id)}}>
+                    Eliminar   
+                </button>
             </div>
         </div>
     );
