@@ -68,6 +68,7 @@ const Employees = () => {
       !isssNumber
     ) {
       setError("Todos los campos son obligatorios");
+      alert("Todos los campos son obligatorios");
       return;
     }
 
@@ -104,7 +105,6 @@ const Employees = () => {
       setEmployees(data);
       setSuccess("Empleado registrado correctamente");
       cleanData();
-      setActiveTab("list");
       fetchData();
     } catch (error) {
       setError(error.message); // Capturar cualquier error
@@ -238,7 +238,8 @@ const Employees = () => {
             </button>
             <button
               className="px-4 py-2 text-gray-600 hover:text-gray-800 focus:outline-none focus:border-b-2 focus:border-blue-500"
-              onClick={() => setActiveTab("form")}
+              onClick={() => { setActiveTab("form") 
+                cleanData()}}
             >
               Gestionar Empleados
             </button>
