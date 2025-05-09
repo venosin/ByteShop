@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListBrands from "../components/Brands/ListBrands";
 import RegisterBrand from "../components/Brands/RegisterBrand";
 const Brands = () => {
@@ -20,7 +20,7 @@ const Brands = () => {
 
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetchBrands();
     }, []);
 
