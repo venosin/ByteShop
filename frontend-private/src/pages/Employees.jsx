@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import RegisterEmployees from "../components/RegisterEmployees";
-import ListEmployees from "../components/ListEmployees";
+import RegisterEmployees from "../components/Employees/RegisterEmployees";
+import ListEmployees from "../components/Employees/ListEmployees";
 
 const Employees = () => {
   const [activeTab, setActiveTab] = useState("list");
@@ -209,7 +209,6 @@ const Employees = () => {
         throw new Error("Error al actualizar el empleado");
       }
 
-      const data = await response.json();
       alert("Empleado actualizado exitosamente");
       setSuccess("Empleado actualizado correctamente");
       cleanData();
@@ -238,8 +237,10 @@ const Employees = () => {
             </button>
             <button
               className="px-4 py-2 text-gray-600 hover:text-gray-800 focus:outline-none focus:border-b-2 focus:border-blue-500"
-              onClick={() => { setActiveTab("form") 
-                cleanData()}}
+              onClick={() => {
+                setActiveTab("form");
+                cleanData();
+              }}
             >
               Gestionar Empleados
             </button>
