@@ -9,7 +9,7 @@ const RegisterBrand=({setNameBrand, nameBrand, saveBrand, id, handleEdit})=>{
               className="block text-gray-700 font-bold mb-2"
               htmlFor="name"
             >
-              Nombre Marca {nameBrand} {id}
+              Nombre Marca
             </label>
             <input
               type="text"
@@ -17,7 +17,8 @@ const RegisterBrand=({setNameBrand, nameBrand, saveBrand, id, handleEdit})=>{
               value={nameBrand}
               onChange={(e) => setNameBrand(e.target.value)}
               className="w-full px-3 py-2 border rounded"
-              placeholder="Emilio"
+              placeholder="Brands"
+              
             />
           </div>
 
