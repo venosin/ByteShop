@@ -28,5 +28,9 @@ El backend maneja toda la lógica del servidor, la autenticación de usuarios, e
 
 El **frontend** de ByteShop está construido con **React**, que proporciona una interfaz interactiva y dinámica para que los usuarios naveguen por los productos, los agreguen al carrito y gestionen su cuenta. React se comunica con el backend a través de la API RESTful para realizar acciones como la autenticación y la compra de productos.
 
+## Toast notificacions 
+
+Se utilizo la libreria: https://react-hot-toast.com/docs/toast
+
 --
 
