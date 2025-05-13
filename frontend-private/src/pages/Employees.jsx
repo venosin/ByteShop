@@ -6,6 +6,13 @@ import {Toaster} from 'react-hot-toast';
 import useDataEmployees from "../components/Employees/hooks/useDataEmployees";
 
 const Employees = () => {
+
+  /*Efecto para cambiar el título de la página
+  cuando se carga la página*/
+    useEffect(() => {
+    document.title = 'Empleados';
+  }, []);
+
   const {
     activeTab,
     setActiveTab,

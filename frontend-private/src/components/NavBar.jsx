@@ -1,11 +1,19 @@
 import React from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const handleLogout = () => {  
+    logout();
+    navigate("/");
+  };
   return (
     <nav className="bg-gray-800 text-white">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="text-lg font-bold">
-          <a href="/" className="hover:text-gray-300">
+          <a href="/dashboard" className="hover:text-gray-300">
             ByteShop
           </a>
         </div>
@@ -33,8 +41,9 @@ const NavBar = () => {
           </li>
         </ul>
         <div>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-            Iniciar Sesión
+          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            onClick={handleLogout}>
+           Cerrar Sesión
           </button>
         </div>
       </div>
