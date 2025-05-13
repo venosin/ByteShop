@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const CategoryCard = ({ category, deleteCategory, updateCategories }) => {
   return (
@@ -11,19 +12,16 @@ const CategoryCard = ({ category, deleteCategory, updateCategories }) => {
           </span>
         </h2>
         <p className="text-gray-600">{category.description}</p>
-
-        <button
-          className="mt-4 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
-          onClick={() => deleteCategory(category._id)}
-        >
-          Eliminar
-        </button>
-        <button
-          className="ml-2 mt-4 px-4 py-2 bg-orange-500 text-white font-semibold rounded hover:bg-orange-600"
-          onClick={() => updateCategories(category)}
-        >
-          Editar información
-        </button>
+        <Button 
+        label={"Eliminar"}
+        actionButton={() => deleteCategory(category._id)}
+        colorClass={"danger"}
+        />
+                <Button 
+        label={"Editar Información"}
+        actionButton={() => updateCategories(category)}
+        colorClass={"warning"}
+        />
       </div>
     </div>
   );

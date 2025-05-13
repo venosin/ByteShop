@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const RegisterEmployees = ({
   id,
@@ -22,7 +23,7 @@ const RegisterEmployees = ({
   setHireDate,
   isssNumber,
   setIsssNumber,
- 
+
   handleSubmit,
   handleUpdate,
 }) => {
@@ -152,22 +153,26 @@ const RegisterEmployees = ({
             >
               Fecha de Nacimiento
             </label>
-{birthdate ?            <input
-              type="date"
-              id="birthdate"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-              name="birthdate"
-              className="w-full px-3 py-2 border rounded"
-              readOnly={true}
-            /> :           <input
-            type="date"
-            id="birthdate"
-            value={birthdate}
-            onChange={(e) => setBirthdate(e.target.value)}
-            name="birthdate"
-            className="w-full px-3 py-2 border rounded"
-          /> }
+            {birthdate ? (
+              <input
+                type="date"
+                id="birthdate"
+                value={birthdate}
+                onChange={(e) => setBirthdate(e.target.value)}
+                name="birthdate"
+                className="w-full px-3 py-2 border rounded"
+                readOnly={true}
+              />
+            ) : (
+              <input
+                type="date"
+                id="birthdate"
+                value={birthdate}
+                onChange={(e) => setBirthdate(e.target.value)}
+                name="birthdate"
+                className="w-full px-3 py-2 border rounded"
+              />
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -205,25 +210,23 @@ const RegisterEmployees = ({
         </div>
 
         {id ? (
-          <button
+          <Button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            onClick={(e) => {
+            label={"Editar Información"}
+            actionButton={(e) => {
               handleUpdate(e);
             }}
-          >
-            Actualizar
-          </button>
+            colorClass={"warning"}
+          />
         ) : (
-          <button
+          <Button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            onClick={(e) => {
+            label={"Registrar"}
+            actionButton={(e) => {
               handleSubmit(e);
             }}
-          >
-            Registrar
-          </button>
+            colorClass={"primary"}
+          />
         )}
       </form>
     </>

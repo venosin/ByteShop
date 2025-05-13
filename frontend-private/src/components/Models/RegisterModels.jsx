@@ -24,12 +24,14 @@ const RegisterModels=({saveModels,setModelName, modelName, handleEdit, id})=>{
 
           {(!id) ?            <Button
             label={"Guardar"}
+            colorClass={"primary"}
             actionButton={(e) => {
               saveModels(e);
             }}
           /> :          
            <Button
             label={"Editar"}
+            colorClass={"warning"}
             actionButton={(e) => {
               handleEdit(e);
             }}

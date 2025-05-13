@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const BrandCard = ({ brand, deleteBrand, updateBrands }) => {
   return (
@@ -11,18 +12,16 @@ const BrandCard = ({ brand, deleteBrand, updateBrands }) => {
           </span>
         </h2>
 
-        <button
-          className="mt-4 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
-          onClick={() => deleteBrand(brand._id)}
-        >
-          Eliminar
-        </button>
-        <button
-          className=" ml-2 mt-4 px-4 py-2 bg-orange-500 text-white font-semibold rounded hover:bg-orange-600"
-          onClick={() => updateBrands(brand)}
-        >
-          Editar información
-        </button>
+                <Button 
+        label={"Eliminar"}
+        actionButton={() => deleteBrand(brand._id)}
+        colorClass={"danger"}
+        />
+                <Button 
+        label={"Editar Información"}
+        actionButton={() => updateBrands(brand)}
+        colorClass={"warning"}
+        />
       </div>
     </div>
   );

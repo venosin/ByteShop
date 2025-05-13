@@ -14,11 +14,13 @@ const ModelsCard = ({ model, deleteModel, updateModels }) => {
 
         <Button
           label={"Eliminar"}
+          colorClass={"danger"}
           actionButton={() => deleteModel(model._id)}
         />
 
         <Button
           label={"Editar información"}
+          colorClass={"warning"}
           actionButton={() => updateModels(model)}
         />
       </div>

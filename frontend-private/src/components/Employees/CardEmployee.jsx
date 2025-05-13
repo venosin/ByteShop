@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const CardEmployee = ({ employee, deleteEmployee, updateEmployee }) => {
   if (!employee) {
@@ -36,22 +37,21 @@ const CardEmployee = ({ employee, deleteEmployee, updateEmployee }) => {
           {employee.isssNumber}
         </p>
         <p>id: {employee._id}</p>
-        <button
-          className="mt-4 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
-          onClick={() => {
-            deleteEmployee(employee._id);
-          }}
-        >
-          Eliminar
-        </button>
-        <button
-          className=" ml-2 mt-4 px-4 py-2 bg-orange-500 text-white font-semibold rounded hover:bg-orange-600"
-          onClick={() => {
-            updateEmployee(employee);
-          }}
-        >
-          Editar información
-        </button>
+
+
+                        <Button 
+        label={"Eliminar"}
+        actionButton={() => deleteEmployee(employee._id)}
+        colorClass={"danger"}
+        />
+
+                        <Button 
+        label={"Editar Información"}
+        actionButton={() => updateEmployee(employee)}
+        colorClass={"warning"}
+        />
+
+
       </div>
     </div>
   );
