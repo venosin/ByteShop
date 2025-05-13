@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import ListBrands from "../components/Brands/ListBrands";
 import RegisterBrand from "../components/Brands/RegisterBrand";
+
 const Brands = () => {
+
   const [activeTab, setActiveTab] = useState("list");
   const API = "http://localhost:4000/api/brands";
   const [id, setId] = useState("");

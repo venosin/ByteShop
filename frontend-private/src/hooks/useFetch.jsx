@@ -18,8 +18,12 @@ No FUNCIONA AUN
 */
 
 
-export const fetchData = async (endPoint, form = null, action = null) => {
-  // Agrega el id a la URL si es PUT o DELETE
+const useFetch =()=>
+{
+
+const SERVER_URL = 'http://localhost:4000/api/';
+
+const fetchData = async (endPoint, form = null, action = null) => {  // Agrega el id a la URL si es PUT o DELETE
   if ((action === 'PUT' || action === 'DELETE') && form?.id) {
     endPoint = `${endPoint}/${form.id}`;
   }
@@ -42,7 +46,7 @@ export const fetchData = async (endPoint, form = null, action = null) => {
     }
 
     const DATA = await RESPONSE.json();
-    console.log('RESPONSE', DATA);
+    console.log('RESPONSE en fetch', DATA);
     return DATA;
 
   } catch (error) {
@@ -50,3 +54,8 @@ export const fetchData = async (endPoint, form = null, action = null) => {
     throw error;
   }
 };
+
+return { fetchData };
+}
+
+export default useFetch;
