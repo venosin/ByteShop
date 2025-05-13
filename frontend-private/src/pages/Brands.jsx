@@ -1,8 +1,10 @@
 import React, { useState, useEffect, use } from "react";
 import ListBrands from "../components/Brands/ListBrands";
 import RegisterBrand from "../components/Brands/RegisterBrand";
+import toast, {Toaster} from 'react-hot-toast';
 
 const Brands = () => {
+
   const [activeTab, setActiveTab] = useState("list");
   const API = "http://localhost:4000/api/brands";
   const [id, setId] = useState("");
@@ -18,6 +20,7 @@ const Brands = () => {
     const data = await response.json();
     setBrands(data);
     setLoading(false);
+  
   };
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const Brands = () => {
     }
 
     const data = await response.json();
-    alert("Nueva marca registrada exitosamente");
+    toast.success('Nueva marca registrada exitosamente');
     setBrands(data);
     fetchBrands();
     setNameBrand("");
@@ -62,7 +65,7 @@ const Brands = () => {
       throw new Error("Hubo un error al eliminar la marca");
     }
 
-    alert("Marca eliminada exitosamente");
+    toast.success('Marca eliminada exitosamente');
     fetchBrands();
   };
 
@@ -92,7 +95,7 @@ const Brands = () => {
       }
 
       const data = await response.json();
-      alert("Brand actualizado exitosamente");
+      toast.success('Marca Actualizada');
       setBrands(data);
       setId(""); // Limpiar el ID
       //setActiveTab("list");
@@ -106,7 +109,7 @@ const Brands = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Empleados</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Marcas</h1>
         <div>
           <div className="flex border-b border-gray-200 mb-4">
             <button
@@ -149,6 +152,11 @@ const Brands = () => {
           </div>
         </div>
       </div>
+                  <Toaster
+          toastOptions={{
+            duration: 1000,
+          }}
+        />
     </div>
   );
 };

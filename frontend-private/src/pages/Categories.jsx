@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListCategories from "../components/Categories/ListCategories";
 import RegisterCategory from "../components/Categories/RegisterCategories";
+import toast, {Toaster} from 'react-hot-toast';
 
 const Categories = () => {
   const [activeTab, setActiveTab] = useState("list");
@@ -45,7 +46,7 @@ const Categories = () => {
     }
 
     const data = await response.json();
-    alert("Nueva categoría registrada exitosamente");
+    toast.success('Categoría registrada');
     setCategories(data);
     fetchCategories();
     setNameCategory("");
@@ -64,7 +65,7 @@ const Categories = () => {
       throw new Error("Hubo un error al eliminar la categoría");
     }
 
-    alert("Categoría eliminada exitosamente");
+      toast.success('Categoria Eliminada');
     fetchCategories();
   };
 
@@ -96,13 +97,14 @@ const Categories = () => {
       }
 
       const data = await response.json();
-      alert("Categoría actualizada exitosamente");
-      setCategories(data);
+       toast.success('categoría actualizada');
       setId("");
+      setDescription("");
+      setNameCategory("");
+      setActiveTab("list");
       fetchCategories();
     } catch (error) {
       console.error("Error al editar la categoría:", error);
-      alert("Error al editar la categoría");
     }
   };
 
@@ -154,6 +156,11 @@ const Categories = () => {
           </div>
         </div>
       </div>
+            <Toaster
+          toastOptions={{
+            duration: 1000,
+          }}
+        />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RegisterEmployees from "../components/Employees/RegisterEmployees";
 import ListEmployees from "../components/Employees/ListEmployees";
+import {Toaster} from 'react-hot-toast';
 
 import useDataEmployees from "../components/Employees/hooks/useDataEmployees";
 
@@ -124,6 +125,11 @@ const Employees = () => {
           </div>
         </div>
       </div>
+         <Toaster
+          toastOptions={{
+            duration: 1000,
+          }}
+        />
     </div>
   );
 };

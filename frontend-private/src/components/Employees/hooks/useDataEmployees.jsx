@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import toast, {Toaster} from 'react-hot-toast';
+
 
 const useDataEmployees = () => {
 
@@ -53,7 +55,7 @@ const useDataEmployees = () => {
           !isssNumber
         ) {
           setError("Todos los campos son obligatorios");
-          alert("Todos los campos son obligatorios");
+            toast.error('Todos los campos son obligatorios');
           return;
         }
     
@@ -86,7 +88,7 @@ const useDataEmployees = () => {
           }
     
           const data = await response.json();
-          alert("Empleado registrado exitosamente");
+            toast.success('Empleado registrado');
           setEmployees(data);
           setSuccess("Empleado registrado correctamente");
           cleanData();
@@ -95,6 +97,7 @@ const useDataEmployees = () => {
           setError(error.message); // Capturar cualquier error
           console.error("Error:", error);
           alert("Error", "Ocurrió un error al registrar el empleado");
+            toast.error('Ocurrió un error al registrar el empleado');
         } finally {
           setLoading(false);
         }
@@ -137,7 +140,7 @@ const useDataEmployees = () => {
     
           const result = await response.json();
           console.log("Deleted:", result);
-    
+    toast.success('Empleado eliminado');
           // Actualizar la lista después de borrar
           //setEmployees((prev) => prev.filter(emp => emp._id !== id));
           fetchData();
@@ -194,7 +197,7 @@ const useDataEmployees = () => {
             throw new Error("Error al actualizar el empleado");
           }
     
-          alert("Empleado actualizado exitosamente");
+          toast.success('Empleado actualizado');
           setSuccess("Empleado actualizado correctamente");
           cleanData();
           setId(""); // Limpiar el ID

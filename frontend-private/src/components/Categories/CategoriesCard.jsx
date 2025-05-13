@@ -11,7 +11,7 @@ const CategoryCard = ({ category, deleteCategory, updateCategories }) => {
             {category.name}{" "}
           </span>
         </h2>
-        <p className="text-gray-600">{category.description}</p>
+        <p className="text-gray-500 font-bold">{category.description}</p>
         <Button 
         label={"Eliminar"}
         actionButton={() => deleteCategory(category._id)}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RegisterModels from "../components/Models/RegisterModels";
 import ListModels from "../components/Models/ListModels";
+import toast, { Toaster } from "react-hot-toast";
 
 const Models = () => {
   //estado para manejar el tab activo
@@ -48,7 +49,7 @@ const Models = () => {
 
     //const data = await response.json();
 
-    alert("Modelo registrado correctamente");
+    toast.success("Modelo registrado exitosamente");
     fetchModels();
     setModelName("");
   };
@@ -73,7 +74,7 @@ const Models = () => {
 
     // const data = await response.json();
 
-    alert("Modelo eliminado correctamente");
+    toast.success("Modelo Eliminado");
     fetchModels();
   };
 
@@ -100,7 +101,7 @@ const Models = () => {
     if (!response.ok) {
       throw new Error("Error al actualizar la modelo");
     }
-    alert("Modelo actualizado exitosamente");
+    toast.success("Modelo actualizado");
     setModelName("");
     setId(""); // Limpiar el ID
     setActiveTab("list");
@@ -152,6 +153,11 @@ const Models = () => {
             </div>
           </div>
         </div>
+        <Toaster
+          toastOptions={{
+            duration: 1000,
+          }}
+        />
       </div>
     </>
   );
