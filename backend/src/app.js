@@ -60,7 +60,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/clients", clientsRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/brands", brandsRoutes);
-app.use("/api/models", modelsRoutes);
+app.use("/api/models", validateAuthToken(), modelsRoutes);
 app.use("/api/employees", employeesRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/purchases", purchasesRoutes);

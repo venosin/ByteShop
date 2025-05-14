@@ -1,11 +1,14 @@
 import { useAuth } from "../context/AuthContext";
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import Models from "../pages/Models";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-      const { user, useLogin } = useAuth();
+    const {user, Login, logout, authCokie, setAuthCokie } = useAuth();
   const navigate = useNavigate();
 
     /*const handleSubmit = async (e) => {
@@ -32,34 +35,39 @@ const Login = () => {
   if (!email || !password) {
     toast.error("Por favor, complete todos los campos.");
     return;
-  }
-
-  const result = await useLogin(email, password);
+  } 
+  const result = await Login(email, password);
 
   if (!result.success) {
     toast.error(result.message || "Credenciales incorrectas.");
     return;
   }
-
   toast.success(result.message);
-  navigate("/dashboard");
+  console.log(authCokie, 'auth desde login pero contexto');
+  console.log(user)
+  navigate('/dashboard');
 };
 
+// Si quieres obtener una cookie específica
+function obtenerCookie(nombre) {
+  const valor = `; ${document.cookie}`;
+  const partes = valor.split(`; ${nombre}=`);
+  if (partes.length === 2) return partes.pop().split(';').shift();
+}
 
-    const verifyUser = () => {
-       
-        if (user) {
-            navigate("/dashboard");
-        } else {
-            navigate("/");
-        }
-    }
+useEffect(() => {
+const miCookie = Cookies.get('authToken');
+  console.log(miCookie, "cookie desde el login useEffect");
+}, []);
 
-    useEffect(() => {
-       verifyUser();
-    }
-    , []);
+const checkAuth = () => {
+   
+    
 
+
+    console.log(authCokie, "token desde login contexto");
+    console.log(user, "user desde login contexto");
+}
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -110,6 +118,12 @@ const Login = () => {
                     }}
                 />
             </div>
+            <button onClick={checkAuth} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
+                comprueba auth
+            </button>
+                    <Models/>
+
+
         </div>
     );
 };

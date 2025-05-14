@@ -6,8 +6,8 @@ import { useAuth } from "../context/AuthContext";
 
 
 export const PrivateRoute = ({ children }) => {
-  const { getCokies } = useAuth();
-  const token = getCokies();
+  const { authCokie } = useAuth();
+  console.log(authCokie, 'auth desde private route');
 
-  return token!==null ? children : <Navigate to="/" />;
+  return authCokie ? children : <Navigate to="/" />;
 };

@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react'
 import Cookies from 'js-cookie';
-
+import React from 'react'
 import { createContext, useContext, useState } from "react";
 
 const SERVER_URL = "http://localhost:4000/api";
+
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [authCokie, setAuthCokie] = useState(false);
 /*
   const useLogin = async (email, password) => {
     try {
@@ -52,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  const useLogin = async (email, password) => {
+  const Login = async (email, password) => {
   try {
     const response = await fetch(`${SERVER_URL}/login`, {
       method: "POST",
@@ -67,22 +68,13 @@ export const AuthProvider = ({ children }) => {
     }
 
     const data = await response.json();
-   const token = Cookies.get('authToken'); 
-   console.log(token, "token desde el contexto");
-
+    setAuthCokie(data.token);  
+    setUser({ email }); 
     return { success: true, message: data.message };
   } catch (error) {
     return { success: false, message: error.message };
   }
 };
-
-const getCokies = async () => {
-
- const token = Cookies.get('authToken'); 
-   console.log(token, "token desde fuera contexto");
-return token || null;
-}
-
 
  const logout = async () => {
   await fetch(`${SERVER_URL}/logout`, {
@@ -90,11 +82,13 @@ return token || null;
     credentials: "include", // importante
   });
   Cookies.remove('authToken'); // Eliminar la cookie del token
+  setAuthCokie(null); // Limpiar el estado de autenticación
+  setUser(null); // Limpiar el usuario
 };
 
 
   return (
-    <AuthContext.Provider value={{ user, useLogin, logout, getCokies}}>
+    <AuthContext.Provider value={{ user, Login, logout, authCokie, setAuthCokie}}>
       {children}
     </AuthContext.Provider>
   );

@@ -15,17 +15,20 @@ const Models = () => {
   const [id, setId] = useState("");
 
   //funcion para consultar los modelos
-  const fetchModels = async () => {
-    const response = await fetch("http://localhost:4000/api/models");
+const fetchModels = async () => {
+  const response = await fetch("http://localhost:4000/api/models", {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Hubo un error al obtener las marcas");
+  }
 
-    if (!response.ok) {
-      throw new Error("Hubo un error al obtener las marcas");
-    }
+  const data = await response.json();
+  setModels(data);
+  setLoading(false);
+};
 
-    const data = await response.json();
-    setModels(data);
-    setLoading(false);
-  };
 
   // funcion para guardar un nuevo modelo
   const saveModels = async (e) => {
