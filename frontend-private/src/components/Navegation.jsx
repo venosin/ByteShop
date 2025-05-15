@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./NavBar";
-import { useAuth } from "../context/AuthContext";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
+  Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
@@ -14,12 +14,23 @@ import Brands from "../pages/Brands";
 import Models from "../pages/Models";
 import Categories from "../pages/Categories";
 import { PrivateRoute } from "./PrivateRoute";
+import { useAuth } from "../context/AuthContext";
 function Navegation() {
+  // ctrl space auto importar
+
+  const { authCokie } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (authCokie) {
+      navigate("/dashboard");
+    }
+  }, [authCokie]);
+
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Login />} />
+        {!authCokie ? <Route path="/" element={<Login />} /> : null}
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

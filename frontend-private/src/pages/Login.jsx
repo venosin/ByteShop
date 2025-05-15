@@ -11,12 +11,6 @@ const Login = () => {
   const { user, Login, logout, authCokie, setAuthCokie } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (authCokie) {
-      navigate("/dashboard");
-    }
-  }, [authCokie]);
-
   /*const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -34,6 +28,21 @@ const Login = () => {
         // Aquí puedes agregar la lógica para iniciar sesión
         toast.success(success.message);
         navigate('/dashboard');
+
+const renderBody = useCallback(() => {
+    if (!loggedInGlobalUsers?.length) {
+      return <Screen name="auth" component={AuthenticationStack} />;
+    }
+    if (!user || !location) {
+      if (isOneWorkspace) {
+        return <Screen name="workspace" component={LocationSelectionStack} />;
+      }
+      return <Screen name="workspace" component={WorkspaceSelectionStack} />;
+    }
+    return <Screen name="main" component={StackNavigator} />;
+  }, [isOneWorkspace, loggedInGlobalUsers, location,
+
+
     };*/
 
   const handleSubmit = async (e) => {
