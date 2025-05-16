@@ -70,7 +70,7 @@ loginController.login = async (req, res) => {
         }
 
         // Guardar el token en una cookie
-        res.cookie("authToken", token, { httpOnly: false });
+        res.cookie("authToken", token, { httpOnly: true });
         res.status(200).json({ message: `${userType} login successful`, token });
       }
     );

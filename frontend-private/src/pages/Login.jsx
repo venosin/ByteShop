@@ -44,7 +44,7 @@ const renderBody = useCallback(() => {
 
 
     };*/
-/*
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -59,34 +59,6 @@ const renderBody = useCallback(() => {
     }
     
     
-  };*/const SERVER_URL = "http://localhost:4000/api";
-
-   const HandleLogin = async (e) => {
-    e.preventDefault();
-    console.log(email, password, "email y password desde el login");
-    try {
-      const response = await fetch(`${SERVER_URL}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Error en la autenticación");
-      }
-
-      const data = await response.json();
-      alert("Login ok")
-      //localStorage.setItem("authToken", data.token);
-      //localStorage.setItem("user", JSON.stringify({ email }));
-      //setAuthCokie(data.token);
-      //setUser({ email });
-
-      return { success: true, message: data.message };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
   };
 
   useEffect(() => {
@@ -94,18 +66,13 @@ const renderBody = useCallback(() => {
     console.log(miCookie, "cookie desde el login useEffect");
   }, []);
 
-  const checkAuth = () => {
-    console.log(authCokie, "token desde login contexto");
-    console.log(user, "user desde login contexto");
-  };
-
   return (
-    <div className="flex items-center justify-center bg-gray-100">
+    <div className="flex items-center justify-center bg-gray-100 h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Iniciar Sesión
         </h2>
-        <form onSubmit={HandleLogin}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
