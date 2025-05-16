@@ -14,12 +14,16 @@ import Brands from "../pages/Brands";
 import Models from "../pages/Models";
 import Categories from "../pages/Categories";
 import { PrivateRoute } from "./PrivateRoute";
-import { useAuth } from "../context/AuthContext";
-function Navegation() {
-  // ctrl space auto importar
 
+import { useAuth } from "../context/AuthContext";
+
+function Navegation() {
+  //en el frontned manejo la autenticacion con cookie osea obtengo lo que 
+  //devuelve el backend y lo guardo en una cookie
+  //y en el frontend lo guardo en el contexto
   const { authCokie } = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (authCokie) {
       navigate("/dashboard");

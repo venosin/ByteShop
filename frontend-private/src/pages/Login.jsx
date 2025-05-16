@@ -44,7 +44,7 @@ const renderBody = useCallback(() => {
 
 
     };*/
-
+/*
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -57,8 +57,36 @@ const renderBody = useCallback(() => {
       toast.error(result.message || "Credenciales incorrectas.");
       return;
     }
-    toast.success(result.message);
-    navigate("/dashboard");
+    
+    
+  };*/const SERVER_URL = "http://localhost:4000/api";
+
+   const HandleLogin = async (e) => {
+    e.preventDefault();
+    console.log(email, password, "email y password desde el login");
+    try {
+      const response = await fetch(`${SERVER_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error en la autenticación");
+      }
+
+      const data = await response.json();
+      alert("Login ok")
+      //localStorage.setItem("authToken", data.token);
+      //localStorage.setItem("user", JSON.stringify({ email }));
+      //setAuthCokie(data.token);
+      //setUser({ email });
+
+      return { success: true, message: data.message };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
   };
 
   useEffect(() => {
@@ -77,7 +105,7 @@ const renderBody = useCallback(() => {
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Iniciar Sesión
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={HandleLogin}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -121,13 +149,7 @@ const renderBody = useCallback(() => {
           }}
         />
       </div>
-      <button
-        onClick={checkAuth}
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
-      >
-        comprueba auth
-      </button>
-      <Employees />
+
     </div>
   );
 };

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import RegisterModels from "../components/Models/RegisterModels";
 import ListModels from "../components/Models/ListModels";
 import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Models = () => {
+
+  const { authCokie } = useAuth();
   //estado para manejar el tab activo
   const [activeTab, setActiveTab] = useState("list");
   //estado para almacenar la información de los modelos que devuelve el api
@@ -18,7 +21,10 @@ const Models = () => {
   const fetchModels = async () => {
     const response = await fetch("http://localhost:4000/api/models", {
       method: "GET",
-      credentials: "include",
+     // credentials: "include",
+        headers: {
+      'Authorization': `Bearer ${authCokie}`
+    }
     });
     if (!response.ok) {
       throw new Error("Hubo un error al obtener las marcas");
@@ -41,7 +47,10 @@ const Models = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
+           
+      'Authorization': `Bearer ${authCokie}`
+          },
+     // credentials: "include",
       body: JSON.stringify(newModel),
     });
 
@@ -65,9 +74,11 @@ const Models = () => {
   const deleteModel = async (id) => {
     const response = await fetch(`http://localhost:4000/api/models/${id}`, {
       method: "DELETE",
+      
       headers: {
         "Content-Type": "application/json",
       },
+      //credentials: "include",
     });
 
     if (!response.ok) {
@@ -97,7 +108,9 @@ const Models = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+      
       },
+      //  credentials: "include",
       body: JSON.stringify(updatedModel),
     });
     if (!response.ok) {

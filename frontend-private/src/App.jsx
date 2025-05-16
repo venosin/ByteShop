@@ -8,10 +8,12 @@ import NavBar from "./components/NavBar";
 import Dashboard from "./pages/Dashboard";
 import Categories from "./pages/Categories";
 import Login from "./pages/Login";
-import { AuthProvider } from "./context/AuthContext";
+
 import { PrivateRoute } from "./components/PrivateRoute";
 import Navegation from "./components/Navegation";
 
+
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (

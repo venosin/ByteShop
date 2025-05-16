@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CardDashboard from "../components/CardDashboard";
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
+
+  const { authCokie } = useAuth();
+
   const [data, setData] = useState({
     employees: 0,
     brands: 0,
@@ -16,7 +20,13 @@ const Dashboard = () => {
         "http://localhost:4000/api/employees"
       );
       const brandsResponse = await fetch("http://localhost:4000/api/brands");
-      const modelsResponse = await fetch("http://localhost:4000/api/models");
+      const modelsResponse = await fetch("http://localhost:4000/api/models",
+        {
+          headers:{
+            Authorization: `Bearer ${authCokie}`,
+            //se lo mando aqui si lo quito no furula
+          }
+        });
       const categoriesResponse = await fetch(
         "http://localhost:4000/api/categories"
       );
