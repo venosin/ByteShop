@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-
+import {useAuth} from '../../../context/AuthContext'
+import { toast } from "react-hot-toast";
 const useDataModels = () => {   
  //codigo de las funciones
-
-
-
   const { authCokie } = useAuth();
   //estado para manejar el tab activo
   const [activeTab, setActiveTab] = useState("list");
@@ -40,6 +38,7 @@ const useDataModels = () => {
 
     const newModel = {
       name: modelName,
+      
     };
 
     const response = await fetch("http://localhost:4000/api/models", {
@@ -109,7 +108,7 @@ const useDataModels = () => {
         "Content-Type": "application/json",
       
       },
-      //  credentials: "include",
+      credentials: "include",
       body: JSON.stringify(updatedModel),
     });
     if (!response.ok) {
@@ -121,8 +120,6 @@ const useDataModels = () => {
     setActiveTab("list");
     fetchModels();
   };
-
-
 
   return {
     activeTab,
@@ -142,3 +139,6 @@ const useDataModels = () => {
 }
 
 export default useDataModels;
+
+
+

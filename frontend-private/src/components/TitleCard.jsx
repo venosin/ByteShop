@@ -1,3 +1,4 @@
+import React from 'react';
 const TitleCard = ({ title, description }) => {
     return (
         <div className="bg-white shadow-md rounded-lg p-6 mb-4">
