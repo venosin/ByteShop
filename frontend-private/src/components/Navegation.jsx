@@ -16,6 +16,7 @@ import Categories from "../pages/Categories";
 import { PrivateRoute } from "./PrivateRoute";
 
 import { useAuth } from "../context/AuthContext";
+import Products from "../pages/Products";
 
 function Navegation() {
   //en el frontned manejo la autenticacion con cookie osea obtengo lo que 
@@ -34,7 +35,7 @@ function Navegation() {
     <>
       <NavBar />
       <Routes>
-        {!authCokie ? <Route path="/" element={<Login />} /> : null}
+       <Route path="/" element={<Login />} /> 
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -43,6 +44,7 @@ function Navegation() {
           <Route path="/models" element={<Models />} />
           <Route path="/categories" element={<Categories />} />
         </Route>
+        <Route path="/products" element={<Products />} />
       </Routes>
     </>
   );

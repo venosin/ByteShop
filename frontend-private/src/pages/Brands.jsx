@@ -37,8 +37,9 @@ const Brands = () => {
     const response = await fetch(API, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+      "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(newBrand),
     });
 

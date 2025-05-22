@@ -12,8 +12,8 @@ import Login from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import Navegation from "./components/Navegation";
 
-
 import { AuthProvider } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -21,6 +21,11 @@ function App() {
       <Router>
         <Navegation />
       </Router>
+                  <Toaster
+          toastOptions={{
+            duration: 1000,
+          }}
+        />
     </AuthProvider>
   );
 }
