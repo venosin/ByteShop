@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
-const SERVER_URL = "http://localhost:4000/api";
+const API = "http://localhost:4000/api";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const Login = async (email, password) => {
     try {
-      const response = await fetch(`${SERVER_URL}/login`, {
+      const response = await fetch(`${API}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, Login, logout, authCokie, setAuthCokie }}
+      value={{ user, Login, logout, authCokie, setAuthCokie, API }}
     >
       {children}
     </AuthContext.Provider>
@@ -64,45 +64,3 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-
-  /*
-  const useLogin = async (email, password) => {
-    try {
-      const response = await fetch(`${SERVER_URL}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Error en la autenticación");
-      }
-
-      const data = await response.json();
-      setUser({ email }); // puedes guardar más datos si quieres
-      return { success: true, message: data.message };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  };*/
-
-  // Verificar si existen empleados
-  /*  const checkEmployeesExist = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/employees");
-      const data = await response.json();
-
-      // Verifica si el arreglo de empleados está vacío
-      if (response.ok && Array.isArray(data) && data.length > 0) {
-        setUsersExist(true);
-      } else {
-        setUsersExist(false);
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al verificar empleados:", error);
-      setLoading(false);
-    }
-  }; */

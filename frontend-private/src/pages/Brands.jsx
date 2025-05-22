@@ -1,112 +1,21 @@
 import React, { useState, useEffect, use } from "react";
 import ListBrands from "../components/Brands/ListBrands";
 import RegisterBrand from "../components/Brands/RegisterBrand";
-import toast, {Toaster} from 'react-hot-toast';
-
+import useDataBrands from "../components/Brands/hooks/useDataBrands";
 const Brands = () => {
-
-  const [activeTab, setActiveTab] = useState("list");
-  const API = "http://localhost:4000/api/brands";
-  const [id, setId] = useState("");
-  const [nameBrand, setNameBrand] = useState("");
-  const [brands, setBrands] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchBrands = async () => {
-    const response = await fetch(API);
-    if (!response.ok) {
-      throw new Error("Hubo un error al obtener las marcas");
-    }
-    const data = await response.json();
-    setBrands(data);
-    setLoading(false);
+  const {
+    activeTab,
+    setActiveTab,
+    id,
+    nameBrand,
+    setNameBrand,
+    brands,
+    loading,
+    saveBrand,
+    deleteBrand,
+    updateBrands,
+  } = useDataBrands();
   
-  };
-
-  useEffect(() => {
-    fetchBrands();
-  }, []);
-
-  const saveBrand = async (e) => {
-    e.preventDefault();
-
-    const newBrand = {
-      name: nameBrand,
-    };
-
-    const response = await fetch(API, {
-      method: "POST",
-      headers: {
-      "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(newBrand),
-    });
-
-    if (!response.ok) {
-      throw new Error("Hubo un error al registrar el empleado");
-    }
-
-    const data = await response.json();
-    toast.success('Nueva marca registrada exitosamente');
-    setBrands(data);
-    fetchBrands();
-    setNameBrand("");
-  };
-
-  const deleteBrand = async (id) => {
-    const response = await fetch(`${API}/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Hubo un error al eliminar la marca");
-    }
-
-    toast.success('Marca eliminada exitosamente');
-    fetchBrands();
-  };
-
-  const updateBrands = async (dataBrand) => {
-    setId(dataBrand._id);
-    setNameBrand(dataBrand.name);
-    setActiveTab("form");
-  };
-
-  const handleEdit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const editBrand = {
-        name: nameBrand,
-      };
-      const response = await fetch(`${API}/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editBrand),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al actualizar la marca");
-      }
-
-      const data = await response.json();
-      toast.success('Marca Actualizada');
-      setBrands(data);
-      setId(""); // Limpiar el ID
-      //setActiveTab("list");
-      fetchBrands(); // Volver a cargar la lista
-    } catch (error) {
-      console.error("Error al editar la marca:", error);
-      alert("Error al editar la marca");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
@@ -153,11 +62,7 @@ const Brands = () => {
           </div>
         </div>
       </div>
-                  <Toaster
-          toastOptions={{
-            duration: 1000,
-          }}
-        />
+
     </div>
   );
 };
