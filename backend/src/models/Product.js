@@ -47,6 +47,10 @@ const productsSchema = new Schema(
       type: String,
       required: false,
     },
+    imagePublicId: {
+      type: String,
+      required: false,
+    },
     idBrand: {
       type: Schema.Types.ObjectId,
       ref: "Brands",
