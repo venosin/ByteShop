@@ -69,8 +69,14 @@ loginController.login = async (req, res) => {
           return res.status(500).json({ message: "Error generating token" });
         }
 
-        // Guardar el token en una cookie
-        res.cookie("authToken", token, { httpOnly: true });
+        // Guardar el token en una cookie con configuraciones adecuadas
+        res.cookie("authToken", token, { 
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000, // 24 horas en milisegundos
+          path: '/', // Cookie disponible en toda la aplicación
+          sameSite: 'lax', // Protección contra CSRF
+          secure: process.env.NODE_ENV === 'production' // Solo HTTPS en producción
+        });
         res.status(200).json({ message: `${userType} login successful`, token });
       }
     );

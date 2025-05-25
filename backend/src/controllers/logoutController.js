@@ -5,8 +5,13 @@ import jwt from "jsonwebtoken";
 
 // CREATE: Crea un nuevo modelo
 logoutController.logout = async (req, res) => {
-   // Borrar la cookie 'authToken' (u otra cookie que uses para el token)
-   res.clearCookie('authToken', { httpOnly: true });
+   // Borrar la cookie 'authToken' con las mismas opciones usadas para crearla
+   res.clearCookie('authToken', { 
+     httpOnly: true,
+     path: '/',
+     sameSite: 'lax',
+     secure: process.env.NODE_ENV === 'production'
+   });
  
  
    // Enviar una respuesta indicando que el logout fue exitoso

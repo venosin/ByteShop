@@ -15,7 +15,7 @@ import Models from "../pages/Models";
 import Categories from "../pages/Categories";
 import { PrivateRoute } from "./PrivateRoute";
 
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import Products from "../pages/Products";
 
 function Navegation() {
