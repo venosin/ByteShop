@@ -1,4 +1,4 @@
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate, Navigate } from "react-router-dom";
