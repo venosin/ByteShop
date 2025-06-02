@@ -1,15 +1,12 @@
 import { useAuth } from "../hooks/useAuth";
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { useNavigate, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import Employees from "../pages/Employees";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, login, logout, authCokie } = useAuth();
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

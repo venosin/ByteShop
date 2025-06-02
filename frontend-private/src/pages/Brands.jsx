@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React from "react";
 import ListBrands from "../components/Brands/ListBrands";
 import RegisterBrand from "../components/Brands/RegisterBrand";
 import useDataBrands from "../components/Brands/hooks/useDataBrands";
@@ -55,7 +55,6 @@ const Brands = () => {
                   saveBrand={saveBrand}
                   nameBrand={nameBrand}
                   id={id}
-                  handleEdit={handleEdit}
                 />
               </div>
             )}

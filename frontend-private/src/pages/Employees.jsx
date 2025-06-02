@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import RegisterEmployees from "../components/Employees/RegisterEmployees";
 import ListEmployees from "../components/Employees/ListEmployees";
 import {Toaster} from 'react-hot-toast';
@@ -48,7 +48,6 @@ const Employees = () => {
     setEmployees,
     cleanData,
     handleSubmit,
-    fetchData,
     deleteEmployee,
     updateEmployee,
     handleUpdate,
