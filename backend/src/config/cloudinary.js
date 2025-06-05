@@ -28,14 +28,7 @@ if (!cloudName || !apiKey || !apiSecret) {
     apiKey: apiKey ? 'OK' : 'MISSING', 
     apiSecret: apiSecret ? 'OK' : 'MISSING'
   });
-  // Usar valores fijos (solo para desarrollo y pruebas)
-  cloudinary.config({
-    cloud_name: 'dcuhlfkgy',
-    api_key: '262183883898841',
-    api_secret: 'z493kA2WXxgG5f6mKyTZkOhCKJc',
-    secure: true
-  });
-  console.log('Usando configuración alternativa para Cloudinary');
+  throw new Error('Las variables de entorno para Cloudinary son obligatorias. Por favor configura el archivo .env con CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY y CLOUDINARY_API_SECRET');
 } else {
   // Configurar con variables de entorno
   cloudinary.config({
